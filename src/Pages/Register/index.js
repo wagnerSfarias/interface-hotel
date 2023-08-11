@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 
 import LoginImg from '../../assets/logo.png'
+import Button from '../../components/Button'
 import {
   Container,
   Form,
@@ -11,7 +12,6 @@ import {
   LoginImage,
   Label,
   Input,
-  Button,
   SignInlink,
   ErrorMessage
 } from './styles'
@@ -36,7 +36,7 @@ export default function Register() {
     formState: { errors }
   } = useForm({ resolver: yupResolver(schema) })
 
-  const onsubmit = data => console.log(data)
+  const onsubmit = async clientData => console.log(clientData)
 
   return (
     <Container>
