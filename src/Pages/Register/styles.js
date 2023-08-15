@@ -62,7 +62,18 @@ export const SignInlink = styled.p`
   line-height: 16px;
   color: #5052ff;
   font-size: 16px;
-  cursor: pointer;
+
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 10px;
+    color: #5052ff;
+
+    &:hover {
+      color: #fe7569;
+      text-decoration: underline;
+    }
+  }
 `
 
 export const ErrorMessage = styled.p`

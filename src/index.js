@@ -2,15 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ToastContainer } from 'react-toastify'
 
-import Login from './pages/Login'
-// import Register from './pages/Register'
+import Routes from './routes'
 import GlobalStyles from './styles/globalStyles'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <>
-    <Login />
-    {/* <Register /> */}
+    <Routes />
     <ToastContainer autoClose={2000} />
     <GlobalStyles />
   </>
