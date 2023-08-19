@@ -1,19 +1,14 @@
 import React from 'react'
 
-import Chef from '../../assets/chef.png'
-import Coffe from '../../assets/coffe.png'
-import Drinks from '../../assets/drink.png'
 import ImgHome from '../../assets/home.jpg'
+import CarouselExperiences from '../../components/CarouselExperiences'
 import Header from '../../components/Header'
 import {
   Container,
   Banner,
   TitleBanner,
   ContainerTitle,
-  Title,
-  Description,
-  ContainerGastronomy,
-  CardsGastronomy
+  Description
 } from './styles'
 
 export default function Home() {
@@ -43,31 +38,7 @@ export default function Home() {
         </div>
       </Description>
 
-      <ContainerGastronomy>
-        <Title>Gastronomia</Title>
-        <CardsGastronomy>
-          <div>
-            <img src={Coffe} />
-            <h2>Café da manhã</h2>
-            <p>Servido todos os dias com um buffet completo.</p>
-          </div>
-          <div>
-            <img src={Chef} />
-            <h2>Restaurante</h2>
-            <p>
-              Temos um menu completo com diversos pratos, além de 5 cheffs
-              renomados a disposição.
-            </p>
-          </div>
-          <div>
-            <img src={Drinks} />
-            <h2>Bar</h2>
-            <p>
-              Aberto 24 horas, com uma ampla variedade de drinks e aperitivos.
-            </p>
-          </div>
-        </CardsGastronomy>
-      </ContainerGastronomy>
+      <CarouselExperiences />
     </Container>
   )
 }
