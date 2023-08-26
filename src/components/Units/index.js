@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import api from '../../service/api'
-import { Title } from '../CarouselExperiences/styles'
+import Title from '../SubTitle'
 import { ContainerUnits, Button } from './styles'
 
 export default function Units() {
@@ -25,7 +25,7 @@ export default function Units() {
               key={unit.id}
               to={{
                 pathname: '/quartos',
-                state: { unitId: unit.id }
+                state: { unitId: unit.id, name: unit.name }
               }}
             >
               <img src={unit.url} />
