@@ -3,6 +3,7 @@ import React from 'react'
 import ImgHome from '../../assets/home.jpg'
 import CarouselExperiences from '../../components/CarouselExperiences'
 import Header from '../../components/Header'
+import Units from '../../components/Units'
 import {
   Container,
   Banner,
@@ -39,6 +40,7 @@ export default function Home() {
       </Description>
 
       <CarouselExperiences />
+      <Units />
     </Container>
   )
 }
