@@ -5,15 +5,10 @@ export const Container = styled.div`
   margin: 3% 0;
   display: flex;
   flex-direction: column;
-  background-color: #f5f0ea;
+  padding-bottom: 3%;
+  background-color: #f0e2d0;
 `
-export const Title = styled.h2`
-  color: #305369;
-  text-align: center;
-  margin: 2% 0;
-  font-size: 28px;
-  font-weight: 400;
-`
+
 export const ContainerCarousel = styled(Carousel)`
   width: 90%;
   margin: 0 auto;
@@ -47,7 +42,6 @@ export const Card = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 2%;
-  /* width: 100%; */
 
   img {
     max-height: 350px;
@@ -62,5 +56,6 @@ export const Card = styled.div`
   p {
     text-align: center;
     font-size: 16px;
+    color: #305369;
   }
 `
