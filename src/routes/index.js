@@ -1,9 +1,8 @@
 import React from 'react'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import Register from '../pages/Register'
+import { Home, Login, Register, Bedrooms } from '../pages'
+
 export default function Routes() {
   return (
     <Router>
@@ -11,6 +10,7 @@ export default function Routes() {
         <Route exact component={Home} path="/" />
         <Route component={Login} path="/login" />
         <Route component={Register} path="/cadastro" />
+        <Route component={Bedrooms} path="/quartos" />
       </Switch>
     </Router>
   )
