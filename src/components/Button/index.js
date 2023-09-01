@@ -3,7 +3,7 @@ import React from 'react'
 
 import { ContainerButton } from './styles'
 
-export default function Button({ children }) {
+export function Button({ children }) {
   return <ContainerButton>{children}</ContainerButton>
 }
 

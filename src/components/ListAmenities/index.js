@@ -10,7 +10,7 @@ const amenities = [
   { name: 'Acomoda até 2 pessoas', icon: FaUserFriends }
 ]
 
-export default function ListAmenities() {
+export function ListAmenities() {
   return (
     <Container>
       {amenities.map(amenitie => (

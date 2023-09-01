@@ -1,9 +1,7 @@
 import React from 'react'
 
 import ImgHome from '../../assets/home.jpg'
-import CarouselExperiences from '../../components/CarouselExperiences'
-import Header from '../../components/Header'
-import Units from '../../components/Units'
+import { CarouselExperiences, Header, Units } from '../../components'
 import {
   Container,
   Banner,
@@ -12,7 +10,7 @@ import {
   Description
 } from './styles'
 
-export default function Home() {
+export function Home() {
   return (
     <Container>
       <Banner>

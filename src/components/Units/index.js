@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 import api from '../../service/api'
-import Title from '../SubTitle'
+import { SubTitle } from '../index'
 import { ContainerUnits, Button } from './styles'
 
-export default function Units() {
+export function Units() {
   const [units, setUnits] = useState([])
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function Units() {
 
   return (
     <>
-      <Title>Unidades</Title>
+      <SubTitle>Unidades</SubTitle>
       <ContainerUnits>
         {units &&
           units.map(unit => (
