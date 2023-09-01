@@ -23,7 +23,9 @@ export function Bedrooms({ location: { state } }) {
 
   useEffect(() => {
     async function loadBedroms() {
-      const { data } = await api.get(`/bedrooms/${state.unitId}`)
+      const { data } = await api.get(`/unit/bedrooms/`, {
+        params: { unit_id: state.unitId }
+      })
       setListBedrooms(data)
     }
     loadBedroms()
