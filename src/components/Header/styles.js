@@ -6,9 +6,19 @@ export const Container = styled.div`
   flex-direction: row;
   font-size: 18px;
   font-weight: 500;
-  padding: 20px;
-  justify-content: end;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  img {
+    width: 30%;
+    margin-left: 80px;
+  }
+`
+export const ContainerLinks = styled.nav`
+  display: flex;
   gap: 50px;
+  color: #fff;
 
   a {
     cursor: pointer;
