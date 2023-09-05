@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 3%;
-  background-color: #f0e2d0;
+  background-color: rgba(98, 135, 169, 0.2);
 `
 
 export const ContainerCarousel = styled(Carousel)`

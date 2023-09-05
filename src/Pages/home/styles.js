@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+const Back =
+  'https://github.com/wagnerSfarias/images/blob/main/images-hotel/banner.jpg?raw=true'
 
-import Back from '../../assets/banner.jpg'
 export const Container = styled.div`
   min-height: 100vh;
 `
@@ -37,7 +38,7 @@ export const ContainerTitle = styled.div`
   justify-content: center;
   align-items: center;
   height: 200px;
-  background-color: #f5f0ea;
+  background-color: rgba(98, 135, 169, 0.2);
   font-size: 24px;
   color: #305369;
 `

@@ -1,6 +1,5 @@
 import React from 'react'
 
-import ImgHome from '../../assets/home.jpg'
 import { CarouselExperiences, Header, Units } from '../../components'
 import {
   Container,
@@ -11,6 +10,8 @@ import {
 } from './styles'
 
 export function Home() {
+  const ImgHome =
+    'https://github.com/wagnerSfarias/images/blob/main/images-hotel/home.jpg?raw=true'
   return (
     <Container>
       <Banner>
@@ -27,7 +28,7 @@ export function Home() {
       </ContainerTitle>
 
       <Description>
-        <img src={ImgHome} />
+        <img src={ImgHome} alt="imagem quarto" />
         <div>
           <h2>Nossos hoteis seguem um padrão de excelência.</h2>
           <p>
