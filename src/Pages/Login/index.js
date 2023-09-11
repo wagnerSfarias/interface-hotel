@@ -1,12 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import LoginImg from '../../assets/logo.png'
-import Button from '../../components/Button'
+import { Button } from '../../components'
+import paths from '../../constants/paths'
+import { useUser } from '../../hooks/UserContext'
 import api from '../../service/api'
 import {
   Container,
@@ -16,10 +18,14 @@ import {
   Label,
   Input,
   SignInlink,
-  ErrorMessage
+  ErrorMessage,
+  IconLoading
 } from './styles'
 
-export default function Login() {
+export function Login() {
+  const history = useHistory()
+  const { putUserData } = useUser()
+
   const schema = Yup.object().shape({
     email: Yup.string()
       .email('Digite um e-mail válido')
@@ -36,8 +42,12 @@ export default function Login() {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onsubmit = async clientData => {
+    toast.info('Verificando dados.', {
+      icon: <IconLoading />,
+      autoClose: 1500
+    })
     try {
-      const { status } = await api.post(
+      const response = await api.post(
         '/sessions',
         {
           email: clientData.email,
@@ -46,9 +56,18 @@ export default function Login() {
         { validateStatus: () => true }
       )
 
-      if (status === 201 || status === 200) {
+      if (response.status === 201 || response.status === 200) {
         toast.success('Seja bem-vindo(a)')
-      } else if (status === 400) {
+        putUserData(response.data)
+
+        setTimeout(() => {
+          if (response.data.admin) {
+            history.push(paths.Reservations)
+          } else {
+            history.push('/')
+          }
+        }, 2000)
+      } else if (response.status === 400) {
         toast.error('Verifique se seu e-mail ou senha estão corretos. ')
       } else {
         throw new Error()
