@@ -1,13 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import LoginImg from '../../assets/logo.png'
-import Button from '../../components/Button'
+import { Button } from '../../components'
 import api from '../../service/api'
+import { IconLoading } from '../Login/styles'
 import {
   Container,
   Form,
@@ -19,7 +20,9 @@ import {
   ErrorMessage
 } from './styles'
 
-export default function Register() {
+export function Register() {
+  const history = useHistory()
+
   const schema = Yup.object().shape({
     name: Yup.string().required('O nome é obrigatório.'),
     email: Yup.string()
@@ -40,6 +43,10 @@ export default function Register() {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onsubmit = async clientData => {
+    toast.info('Verificando dados.', {
+      icon: <IconLoading />,
+      autoClose: 1500
+    })
     try {
       const { status } = await api.post(
         '/user',
@@ -52,9 +59,10 @@ export default function Register() {
       )
 
       if (status === 201 || status === 200) {
-        toast.success('Usuario criado com sucesso')
+        toast.success('Usuário criado com sucesso.')
+        history.goBack()
       } else if (status === 409) {
-        toast.error('Email já cadastrado! Faça login para continuar')
+        toast.error('Email já cadastrado! Faça login para continuar.')
       } else {
         throw new Error()
       }
