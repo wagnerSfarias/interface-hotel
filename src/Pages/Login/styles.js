@@ -1,5 +1,15 @@
-import styled from 'styled-components'
+import { FaCircleNotch } from 'react-icons/fa'
+import styled, { keyframes } from 'styled-components'
 
+const rotate = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`
+export const IconLoading = styled(FaCircleNotch)`
+  animation: ${rotate} 1s linear infinite;
+  color: #3498db;
+`
 export const Container = styled.div`
   height: 100vh;
   width: 100vw;
