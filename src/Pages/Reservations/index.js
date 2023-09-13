@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 
 import { SubTitle, Header } from '../../components'
 import { Warn } from '../../components/ModalBedroom/styles'
 import api from '../../service/api'
+import formatDate from '../../utils/formatDate'
 import {
   Container,
   ContainerReservations,
@@ -17,9 +19,12 @@ export function Reservations() {
 
   useEffect(() => {
     async function loadReservations() {
-      const { data } = await api.get('/user/reservations')
-
-      setReservations(data)
+      try {
+        const { data } = await api.get('/user/reservations')
+        setReservations(data)
+      } catch (err) {
+        toast.error('Falha no sistema! Tente novamente. ')
+      }
     }
     loadReservations()
   }, [])
@@ -52,21 +57,11 @@ export function Reservations() {
                 <Dates>
                   <div>
                     <p>CHECK-IN</p>
-                    <p>
-                      {new Date(reservation.check_in).toLocaleDateString(
-                        'pt-BR',
-                        { timeZone: 'UTC' }
-                      )}
-                    </p>
+                    <p>{formatDate(reservation.check_in)}</p>
                   </div>
                   <div>
                     <p>CHECK-OUT</p>
-                    <p>
-                      {new Date(reservation.check_out).toLocaleDateString(
-                        'pt-BR',
-                        { timeZone: 'UTC' }
-                      )}
-                    </p>
+                    <p>{formatDate(reservation.check_out)}</p>
                   </div>
                 </Dates>
 
