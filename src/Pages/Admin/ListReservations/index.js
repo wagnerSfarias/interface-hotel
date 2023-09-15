@@ -33,7 +33,7 @@ export default function ListReservations() {
     const diffInMs =
       new Date(reservation.check_out) - new Date(reservation.check_in)
     const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
-    console.log(diffInDays)
+
     return {
       id: reservation.id,
       name: reservation.user.name,
