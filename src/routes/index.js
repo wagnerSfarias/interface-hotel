@@ -1,7 +1,8 @@
 import React from 'react'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 
-import { Home, Login, Register, Bedrooms, Reservations } from '../pages'
+import paths from '../constants/paths'
+import { Home, Login, Register, Bedrooms, Reservations, Admin } from '../pages'
 import PrivateRoutes from './private-route'
 
 export default function Routes() {
@@ -14,6 +15,7 @@ export default function Routes() {
         <Route component={Bedrooms} path="/quartos" />
 
         <PrivateRoutes component={Reservations} path="/reservas" />
+        <PrivateRoutes component={Admin} path={paths.Reservations} isAdmin />
       </Switch>
     </Router>
   )
