@@ -1,4 +1,5 @@
 const paths = {
-  Reservations: '/admin/reservas'
+  Reservations: '/admin/reservas',
+  EditUnits: '/admin/unidades'
 }
 export default paths
