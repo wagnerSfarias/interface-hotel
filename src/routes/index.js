@@ -16,6 +16,7 @@ export default function Routes() {
 
         <PrivateRoutes component={Reservations} path="/reservas" />
         <PrivateRoutes component={Admin} path={paths.Reservations} isAdmin />
+        <PrivateRoutes component={Admin} path={paths.EditUnits} isAdmin />
       </Switch>
     </Router>
   )
