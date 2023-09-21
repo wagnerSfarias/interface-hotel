@@ -51,10 +51,17 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
     unitDataFormData.append('file', data.file[0])
 
     try {
-      await api.post('unit/', unitDataFormData)
-      toast.success('Unidade criada.')
+      const { status } = await api.post('unit/', unitDataFormData, {
+        validateStatus: () => true
+      })
+      if (status === 201 || status === 200) {
+        toast.success('Unidade criada.')
+      } else if (status === 400) {
+        toast.error('Nome da unidade já existe, tente usar outro nome.')
+      } else {
+        throw new Error()
+      }
     } catch (err) {
-      console.log(err)
       toast.error('Falha no sistema tente novamente!')
     }
     onRequestClose()
@@ -88,7 +95,6 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
             />
             <ErrorMessage>{errors.address?.message}</ErrorMessage>
           </div>
-
           <LabelUpload>
             {fileName || (
               <>
@@ -104,8 +110,8 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
               onChange={value => setFileName(value.target.files[0]?.name)}
             />
           </LabelUpload>
-          <ErrorMessage>{errors.file?.message}</ErrorMessage>
 
+          <ErrorMessage>{errors.file?.message}</ErrorMessage>
           <Button>Criar</Button>
         </form>
       </Container>
