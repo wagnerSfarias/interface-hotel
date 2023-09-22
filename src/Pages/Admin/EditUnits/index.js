@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 
-import { ModalCreateUnit } from '../../../components'
+import { ModalCreateUnit, ModalEditUnit } from '../../../components'
 import api from '../../../service/api'
 import { Container, ButtonAdd, ImgUnit, EditIcon } from './styles'
 
@@ -16,25 +16,35 @@ Modal.setAppElement('#root')
 
 export default function EditUnits() {
   const [units, setUnits] = useState([])
-  const [modalCreateVisible, setModalCreateVisible] = useState(false)
+  const [createModal, setCreateModal] = useState(false)
+  const [detail, setDetail] = useState([])
+  const [editModal, setEditModal] = useState(false)
 
-  useEffect(() => {
-    async function loadUnits() {
+  async function loadUnits() {
+    try {
       const { data } = await api.get('/units')
       setUnits(data)
-    }
+    } catch (err) {}
+  }
 
+  useEffect(() => {
     loadUnits()
   }, [])
 
   function openModalCreate() {
-    setModalCreateVisible(true)
+    setCreateModal(true)
   }
-  async function closeModal() {
-    setModalCreateVisible(false)
 
-    const { data } = await api.get('/units')
-    setUnits(data)
+  async function closeModal() {
+    setEditModal(false)
+    setCreateModal(false)
+
+    loadUnits()
+  }
+
+  function editProduct(product) {
+    setDetail(product)
+    setEditModal(true)
   }
 
   return (
@@ -66,7 +76,7 @@ export default function EditUnits() {
                       <ImgUnit src={product.url} alt="imagem-unidade" />
                     </TableCell>
                     <TableCell>
-                      <EditIcon />
+                      <EditIcon onClick={() => editProduct(product)} />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -74,10 +84,14 @@ export default function EditUnits() {
           </Table>
         </TableContainer>
 
-        {modalCreateVisible && (
-          <ModalCreateUnit
-            isOpen={modalCreateVisible}
+        {createModal && (
+          <ModalCreateUnit isOpen={createModal} onRequestClose={closeModal} />
+        )}
+        {editModal && (
+          <ModalEditUnit
+            isOpen={editModal}
             onRequestClose={closeModal}
+            details={detail}
           />
         )}
       </Container>
