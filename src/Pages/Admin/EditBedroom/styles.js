@@ -1,0 +1,14 @@
+import Edit from '@mui/icons-material/Edit'
+import styled from 'styled-components'
+
+export const Container = styled.div`
+  margin-top: 70px;
+`
+export const Img = styled.img`
+  max-height: 100px;
+  border-radius: 5px;
+`
+export const EditIcon = styled(Edit)`
+  cursor: pointer;
+  color: #323d5d;
+`
