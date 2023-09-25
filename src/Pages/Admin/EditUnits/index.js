@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
+import { toast } from 'react-toastify'
 
 import { ModalCreateUnit, ModalEditUnit } from '../../../components'
 import api from '../../../service/api'
@@ -24,7 +25,9 @@ export default function EditUnits() {
     try {
       const { data } = await api.get('/units')
       setUnits(data)
-    } catch (err) {}
+    } catch (err) {
+      toast.error('Falha no sistema! Tente novamente. ')
+    }
   }
 
   useEffect(() => {
