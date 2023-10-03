@@ -9,26 +9,28 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 
+import { ModalCreateBedroom } from '../../../components'
 import api from '../../../service/api'
 import Row from './row'
-import { Container } from './styles'
+import { Container, ButtonAdd } from './styles'
 
 Modal.setAppElement('#root')
 
 export default function EditBedroom() {
   const [bedrooms, setBedrooms] = useState([])
   const [rows, setRows] = useState([])
+  const [createModal, setCreateModal] = useState(false)
 
-  useEffect(() => {
-    async function loadBedrooms() {
-      try {
-        const { data } = await api.get('/bedrooms')
+  async function loadBedrooms() {
+    try {
+      const { data } = await api.get('/bedrooms')
 
-        setBedrooms(data)
-      } catch (err) {
-        toast.error('Falha no sistema! Tente novamente. ')
-      }
+      setBedrooms(data)
+    } catch (err) {
+      toast.error('Falha no sistema! Tente novamente. ')
     }
+  }
+  useEffect(() => {
     loadBedrooms()
   }, [])
 
@@ -51,8 +53,18 @@ export default function EditBedroom() {
     setRows(newBedroom)
   }, [bedrooms])
 
+  function openModalCreate() {
+    setCreateModal(true)
+  }
+  async function closeModal() {
+    setCreateModal(false)
+
+    loadBedrooms()
+  }
+
   return (
     <>
+      <ButtonAdd onClick={openModalCreate}>Adicionar novo quarto</ButtonAdd>
       <Container>
         <TableContainer component={Paper}>
           <Table aria-label="collapsible table">
@@ -72,6 +84,9 @@ export default function EditBedroom() {
           </Table>
         </TableContainer>
       </Container>
+      {createModal && (
+        <ModalCreateBedroom isOpen={createModal} onRequestClose={closeModal} />
+      )}
     </>
   )
 }
