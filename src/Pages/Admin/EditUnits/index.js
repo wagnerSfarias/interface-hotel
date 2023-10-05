@@ -9,9 +9,13 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 
-import { ModalCreateUnit, ModalEditUnit } from '../../../components'
+import {
+  ModalCreateUnit,
+  ModalEditUnit,
+  ButtonAdmin
+} from '../../../components'
 import api from '../../../service/api'
-import { Container, ButtonAdd, ImgUnit, EditIcon } from './styles'
+import { Container, ImgUnit, EditIcon } from './styles'
 
 Modal.setAppElement('#root')
 
@@ -52,7 +56,9 @@ export default function EditUnits() {
 
   return (
     <>
-      <ButtonAdd onClick={openModalCreate}>Adicionar nova unidade</ButtonAdd>
+      <ButtonAdmin onClick={openModalCreate} text="Adicionar nova unidade">
+        Adicionar nova unidade
+      </ButtonAdmin>
       <Container>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

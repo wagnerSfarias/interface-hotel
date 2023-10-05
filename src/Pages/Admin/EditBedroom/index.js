@@ -9,10 +9,10 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 
-import { ModalCreateBedroom } from '../../../components'
+import { ModalCreateBedroom, ButtonAdmin } from '../../../components'
 import api from '../../../service/api'
 import Row from './row'
-import { Container, ButtonAdd } from './styles'
+import { Container } from './styles'
 
 Modal.setAppElement('#root')
 
@@ -64,7 +64,9 @@ export default function EditBedroom() {
 
   return (
     <>
-      <ButtonAdd onClick={openModalCreate}>Adicionar novo quarto</ButtonAdd>
+      <ButtonAdmin onClick={openModalCreate} text="Adicionar novo quarto">
+        Adicionar novo quarto
+      </ButtonAdmin>
       <Container>
         <TableContainer component={Paper}>
           <Table aria-label="collapsible table">
