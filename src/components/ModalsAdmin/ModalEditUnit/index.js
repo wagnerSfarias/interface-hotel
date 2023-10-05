@@ -19,6 +19,9 @@ import {
 } from '../ModalCreateUnit/styles'
 
 export function ModalEditUnit({ isOpen, onRequestClose, details }) {
+  const [fileName, setFileName] = useState(details.url_banner)
+  const [error, setError] = useState(false)
+
   const customStyles = {
     content: {
       top: '50%',
@@ -27,13 +30,12 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      height: '50vh',
+      height: '70vh',
       width: '40%',
       padding: '0',
       background: '#dadbf5'
     }
   }
-  const [fileName, setFileName] = useState(details.url_banner)
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome da unidade.'),
@@ -58,16 +60,16 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
       })
       if (status === 201 || status === 200) {
         toast.success('Unidade alterada')
+        onRequestClose()
       } else if (status === 400) {
         toast.error('Nome da unidade já existe, tente usar outro nome.')
+        setError(true)
       } else {
         throw new Error()
       }
     } catch (err) {
       toast.error('Falha no sistema tente novamente!')
     }
-
-    onRequestClose()
   }
 
   return (
@@ -85,9 +87,11 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
             <Input
               type="text"
               {...register('name')}
+              errorExist={error}
               defaultValue={details.name}
             />
             <ErrorMessage>{errors.name?.message}</ErrorMessage>
+            {error && <ErrorMessage>Nome da unidade já existe.</ErrorMessage>}
           </div>
           <div>
             <Label>Endereço</Label>

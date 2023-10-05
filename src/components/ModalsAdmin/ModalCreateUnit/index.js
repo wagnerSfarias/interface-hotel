@@ -14,6 +14,7 @@ import { Container, Label, Input, LabelUpload, Button } from './styles'
 
 export function ModalCreateUnit({ isOpen, onRequestClose }) {
   const [fileName, setFileName] = useState(null)
+  const [error, setError] = useState(false)
 
   const customStyles = {
     content: {
@@ -23,7 +24,7 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      height: '50vh',
+      height: '70vh',
       width: '40%',
       padding: '0',
       background: '#dadbf5'
@@ -56,15 +57,16 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
       })
       if (status === 201 || status === 200) {
         toast.success('Unidade criada.')
+        onRequestClose()
       } else if (status === 400) {
         toast.error('Nome da unidade já existe, tente usar outro nome.')
+        setError(true)
       } else {
         throw new Error()
       }
     } catch (err) {
       toast.error('Falha no sistema tente novamente!')
     }
-    onRequestClose()
   }
 
   return (
@@ -83,8 +85,10 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
               type="text"
               {...register('name')}
               error={errors.name?.message}
+              errorExist={error}
             />
             <ErrorMessage>{errors.name?.message}</ErrorMessage>
+            {error && <ErrorMessage>Nome da unidade já existe.</ErrorMessage>}
           </div>
           <div>
             <Label>Endereço</Label>

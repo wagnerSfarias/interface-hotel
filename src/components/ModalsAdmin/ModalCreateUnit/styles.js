@@ -27,7 +27,8 @@ export const Input = styled.input`
   height: 40px;
   background: #fff;
   border: none;
-  border: ${props => (props.error ? '1px solid #cc1717' : 'none')};
+  border: ${props =>
+    props.error || props.errorExist ? '1px solid #cc1717' : 'none'};
   width: 100%;
   min-width: 280px;
   padding-left: 10px;
