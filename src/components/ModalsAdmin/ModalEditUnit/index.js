@@ -88,6 +88,7 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
               type="text"
               {...register('name')}
               errorExist={error}
+              error={errors.name?.message}
               defaultValue={details.name}
             />
             <ErrorMessage>{errors.name?.message}</ErrorMessage>
@@ -99,6 +100,7 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
               type="text"
               {...register('address')}
               defaultValue={details.address}
+              error={errors.address?.message}
             />
             <ErrorMessage>{errors.address?.message}</ErrorMessage>
           </div>
