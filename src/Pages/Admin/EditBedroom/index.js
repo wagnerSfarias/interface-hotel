@@ -9,7 +9,11 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 
-import { ModalCreateBedroom, ButtonAdmin } from '../../../components'
+import {
+  ModalCreateBedroom,
+  ButtonAdmin,
+  ModalEditBedroom
+} from '../../../components'
 import api from '../../../service/api'
 import Row from './row'
 import { Container } from './styles'
@@ -18,18 +22,20 @@ Modal.setAppElement('#root')
 
 export default function EditBedroom() {
   const [bedrooms, setBedrooms] = useState([])
+  const [detail, setDetail] = useState([])
   const [rows, setRows] = useState([])
+  const [editModal, setEditModal] = useState(false)
   const [createModal, setCreateModal] = useState(false)
 
   async function loadBedrooms() {
     try {
       const { data } = await api.get('/bedrooms')
-
       setBedrooms(data)
     } catch (err) {
       toast.error('Falha no sistema! Tente novamente. ')
     }
   }
+
   useEffect(() => {
     loadBedrooms()
   }, [])
@@ -41,9 +47,12 @@ export default function EditBedroom() {
       price: bedroom.price,
       qtd_people: bedroom.qtd_people,
       unit_name: bedroom.unidade.name,
-      url: bedroom.url,
-      url_l: bedroom.url_l,
-      url_r: bedroom.url_r
+      images: [
+        { url: bedroom.url },
+        { url: bedroom.url_l },
+        { url: bedroom.url_r }
+      ],
+      select: bedroom.unidade
     }
   }
 
@@ -58,8 +67,12 @@ export default function EditBedroom() {
   }
   async function closeModal() {
     setCreateModal(false)
-
+    setEditModal(false)
     loadBedrooms()
+  }
+  function editBedroom(bedroom) {
+    setDetail(bedroom)
+    setEditModal(true)
   }
 
   return (
@@ -80,7 +93,7 @@ export default function EditBedroom() {
             </TableHead>
             <TableBody>
               {rows.map(row => (
-                <Row key={row.id} row={row} />
+                <Row key={row.id} row={row} edit={editBedroom} />
               ))}
             </TableBody>
           </Table>
@@ -88,6 +101,13 @@ export default function EditBedroom() {
       </Container>
       {createModal && (
         <ModalCreateBedroom isOpen={createModal} onRequestClose={closeModal} />
+      )}
+      {editModal && (
+        <ModalEditBedroom
+          isOpen={editModal}
+          onRequestClose={closeModal}
+          details={detail}
+        />
       )}
     </>
   )

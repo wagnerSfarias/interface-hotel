@@ -15,7 +15,7 @@ import React, { useState } from 'react'
 import formatCurrency from '../../../utils/formatCurrency'
 import { Img, EditIcon } from './styles'
 
-export default function Row({ row }) {
+export default function Row({ row, edit }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -55,19 +55,19 @@ export default function Row({ row }) {
                 <TableBody>
                   <TableRow>
                     <TableCell component="th" scope="row" align="center">
-                      <Img src={row.url} alt="imagem-quarto" />
+                      <Img src={row.images[0].url} alt="imagem-quarto" />
                     </TableCell>
                     <TableCell align="center">
-                      <Img src={row.url_l} alt="imagem-quarto" />
+                      <Img src={row.images[1].url} alt="imagem-quarto" />
                     </TableCell>
                     <TableCell align="center">
-                      <Img src={row.url_r} alt="imagem-quarto" />
+                      <Img src={row.images[2].url} alt="imagem-quarto" />
                     </TableCell>
                     <TableCell align="center">
                       {row.qtd_people} pessoas
                     </TableCell>
                     <TableCell align="right">
-                      <EditIcon />
+                      <EditIcon onClick={() => edit(row)} />
                     </TableCell>
                   </TableRow>
                 </TableBody>
@@ -87,8 +87,15 @@ Row.propTypes = {
     price: PropTypes.number.isRequired,
     qtd_people: PropTypes.number.isRequired,
     unit_name: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    url_l: PropTypes.string.isRequired,
-    url_r: PropTypes.string.isRequired
-  }).isRequired
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        url: PropTypes.string.isRequired
+      })
+    ).isRequired,
+    select: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  edit: PropTypes.func
 }
