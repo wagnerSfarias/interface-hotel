@@ -58,10 +58,6 @@ export const Carousel = styled.div`
   grid-template-columns: 120px 120px 120px;
   grid-template-rows: 80px;
   gap: 5px;
-
-  img {
-    height: 100%;
-  }
 `
 export const LabelUpload = styled.label`
   cursor: pointer;
@@ -78,6 +74,12 @@ export const LabelUpload = styled.label`
   input {
     opacity: 0;
     width: 1px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
   }
 `
 export const Button = styled.button`

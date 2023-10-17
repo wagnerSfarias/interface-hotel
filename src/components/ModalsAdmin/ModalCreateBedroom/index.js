@@ -203,10 +203,7 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
                   onChange={e => handleUpdateFile(e, value.name)}
                 />
 
-                <img
-                  style={{ width: '120px' }}
-                  src={URL.createObjectURL(value)}
-                />
+                <img src={URL.createObjectURL(value)} />
               </LabelUpload>
             ))}
             {listFile.length === 3 ? (
