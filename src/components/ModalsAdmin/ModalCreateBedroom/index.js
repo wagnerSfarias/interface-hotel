@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import api from '../../../service/api'
+import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import {
@@ -61,13 +62,12 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
     name: Yup.string().required('Digite o nome da unidade.'),
     qtd_people: Yup.number()
       .typeError('Digite a capacidade de pessoas.')
-      .max(2, 'Nosso limite é de até 2 pessoas.')
-      .required('Digite a capacidade de pessoas.'),
+      .min(1, 'Nosso limite mínimo é de 1 pessoa.')
+      .max(2, 'Nosso limite é de até 2 pessoas.'),
     price: Yup.number()
       .typeError('Digite o valor da diaria.')
       .min(200, 'Valor mínimo é de R$ 200.')
-      .max(400, 'Valor máximo até R$ 400')
-      .required('Digite o valor da diaria.'),
+      .max(400, 'Valor máximo até R$ 400'),
     id_unit: Yup.object().required('escolhe uma unidade.')
   })
 
@@ -99,42 +99,59 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
         })
         if (status === 201 || status === 200) {
           toast.success('Quarto adicionado.')
+          onRequestClose()
         } else {
           throw new Error()
         }
       } catch (err) {
         toast.error('Falha no sistema tente novamente!')
       }
-      onRequestClose()
     }
   }
 
   const handleFile = e => {
-    const existsImg = listFile.find(
-      index => index.name === e.target.files[0]?.name
-    )
-    if (existsImg) {
-      toast.warn('Por favor, não repetir as imagens!')
-      return
-    }
+    if (e.target.files[0]) {
+      const isImage = typeFile(e)
 
-    const files = [...listFile, ...e.target.files]
-    setListFile(files)
+      if (isImage) {
+        const existsImg = listFile.find(index => index.name === isImage[0].name)
+        if (existsImg) {
+          toast.warn('Por favor, não repetir as imagens!')
+          e.target.value = null
+          return
+        }
+
+        const files = [...listFile, ...isImage]
+        setListFile(files)
+        e.target.value = null
+      } else {
+        e.target.value = null
+      }
+    }
   }
 
   const handleUpdateFile = (e, nameFile) => {
-    const existsImg = listFile.find(
-      index => index.name === e.target.files[0]?.name
-    )
-    if (existsImg) {
-      toast.warn('Por favor, não repetir as imagens!')
-      return
-    }
-    const newFiles = listFile.map(image => {
-      return image.name === nameFile ? e.target.files[0] : image
-    })
+    if (e.target.files[0]) {
+      const isImage = typeFile(e)
+      if (isImage) {
+        const existsImg = listFile.find(
+          index => index.name === isImage[0]?.name
+        )
+        if (existsImg) {
+          toast.warn('Por favor, não repetir as imagens!')
+          e.target.value = null
+          return
+        }
+        const newFiles = listFile.map(image => {
+          return image.name === nameFile ? isImage[0] : image
+        })
 
-    setListFile(newFiles)
+        setListFile(newFiles)
+        e.target.value = null
+      } else {
+        e.target.value = null
+      }
+    }
   }
 
   return (

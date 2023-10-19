@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import api from '../../../service/api'
+import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import {
@@ -108,19 +109,16 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
 
   const handleUpdateFile = (e, key) => {
     if (e.target.files[0]) {
-      const myFile = e.target.files[0].name
-      const extension = myFile.split('.').pop()
-      const validTypes = ['png', 'PNG', 'jpg', 'JPG', 'jpeg', 'JPEG']
-      const noExt = validTypes.includes(extension)
+      const isImage = typeFile(e)
 
-      if (!noExt) {
-        toast.warn('Por favor, inserir arquivos de extensões png, jpg, jpeg.')
-        return
+      if (isImage) {
+        const newFiles = listFile.map((image, index) => {
+          return index === key ? e.target.files[0] : image
+        })
+        setListFile(newFiles)
+      } else {
+        e.target.value = null
       }
-      const newFiles = listFile.map((image, index) => {
-        return index === key ? e.target.files[0] : image
-      })
-      setListFile(newFiles)
     }
   }
 
