@@ -2,12 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { MdClose, MdUploadFile } from 'react-icons/md'
+import { MdClose } from 'react-icons/md'
 import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import api from '../../../service/api'
+import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import {
@@ -19,7 +20,7 @@ import {
 } from '../ModalCreateUnit/styles'
 
 export function ModalEditUnit({ isOpen, onRequestClose, details }) {
-  const [fileName, setFileName] = useState(details.url_banner)
+  const [file, setFile] = useState(null)
   const [error, setError] = useState(false)
 
   const customStyles = {
@@ -52,7 +53,7 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
     const unitDataFormData = new FormData()
     unitDataFormData.append('name', data.name)
     unitDataFormData.append('address', data.address)
-    unitDataFormData.append('file', data.file[0])
+    unitDataFormData.append('file', file)
 
     try {
       const { status } = await api.put(`unit/${details.id}`, unitDataFormData, {
@@ -69,6 +70,18 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
       }
     } catch (err) {
       toast.error('Falha no sistema tente novamente!')
+    }
+  }
+
+  const handleFile = e => {
+    if (e.target.files[0]) {
+      const isImage = typeFile(e)
+      if (isImage) {
+        setFile(isImage[0])
+        e.target.value = null
+      } else {
+        e.target.value = null
+      }
     }
   }
 
@@ -106,18 +119,15 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
           </div>
 
           <LabelUpload>
-            {fileName || (
-              <>
-                <MdUploadFile />
-                Carregue a imagem
-              </>
-            )}
+            <img
+              src={file ? URL.createObjectURL(file) : details.url}
+              alt="imagem-unidade"
+            />
 
             <input
-              {...register('file')}
               type="file"
               accept="image/png, image/jpeg"
-              onChange={value => setFileName(value.target.files[0]?.name)}
+              onChange={handleFile}
             />
           </LabelUpload>
           <ErrorMessage>{errors.file?.message}</ErrorMessage>

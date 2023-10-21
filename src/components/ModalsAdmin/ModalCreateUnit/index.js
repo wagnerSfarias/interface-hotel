@@ -8,13 +8,15 @@ import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import api from '../../../service/api'
+import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import { Container, Label, Input, LabelUpload, Button } from './styles'
 
 export function ModalCreateUnit({ isOpen, onRequestClose }) {
-  const [fileName, setFileName] = useState(null)
+  const [file, setFile] = useState(null)
   const [error, setError] = useState(false)
+  const [errorFile, setErrorFile] = useState(false)
 
   const customStyles = {
     content: {
@@ -33,10 +35,7 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome da unidade.'),
-    address: Yup.string().required('Digite o endereço da unidade.'),
-    file: Yup.mixed().test('required', 'Carregue uma imagem', value => {
-      return value?.length > 0
-    })
+    address: Yup.string().required('Digite o endereço da unidade.')
   })
 
   const {
@@ -46,26 +45,42 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async data => {
-    const unitDataFormData = new FormData()
-    unitDataFormData.append('name', data.name)
-    unitDataFormData.append('address', data.address)
-    unitDataFormData.append('file', data.file[0])
+    if (file) {
+      setErrorFile(false)
+      const unitDataFormData = new FormData()
+      unitDataFormData.append('name', data.name)
+      unitDataFormData.append('address', data.address)
+      unitDataFormData.append('file', file)
 
-    try {
-      const { status } = await api.post('unit/', unitDataFormData, {
-        validateStatus: () => true
-      })
-      if (status === 201 || status === 200) {
-        toast.success('Unidade criada.')
-        onRequestClose()
-      } else if (status === 400) {
-        toast.error('Nome da unidade já existe, tente usar outro nome.')
-        setError(true)
-      } else {
-        throw new Error()
+      try {
+        const { status } = await api.post('unit/', unitDataFormData, {
+          validateStatus: () => true
+        })
+        if (status === 201 || status === 200) {
+          toast.success('Unidade criada.')
+          onRequestClose()
+        } else if (status === 400) {
+          toast.error('Nome da unidade já existe, tente usar outro nome.')
+          setError(true)
+        } else {
+          throw new Error()
+        }
+      } catch (err) {
+        toast.error('Falha no sistema tente novamente!')
       }
-    } catch (err) {
-      toast.error('Falha no sistema tente novamente!')
+    } else {
+      setErrorFile(true)
+    }
+  }
+  const handleFile = e => {
+    if (e.target.files[0]) {
+      const isImage = typeFile(e)
+      if (isImage) {
+        setFile(isImage[0])
+        e.target.value = null
+      } else {
+        e.target.value = null
+      }
     }
   }
 
@@ -100,22 +115,19 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
             <ErrorMessage>{errors.address?.message}</ErrorMessage>
           </div>
           <LabelUpload>
-            {fileName || (
-              <>
-                <MdUploadFile />
-                Carregue a imagem
-              </>
+            {file ? (
+              <img src={URL.createObjectURL(file)} alt="imagem-unidade" />
+            ) : (
+              <MdUploadFile />
             )}
 
             <input
-              {...register('file')}
               type="file"
               accept="image/png, image/jpeg"
-              onChange={value => setFileName(value.target.files[0]?.name)}
+              onChange={handleFile}
             />
           </LabelUpload>
-
-          <ErrorMessage>{errors.file?.message}</ErrorMessage>
+          {errorFile && <ErrorMessage>Carregue uma imagem</ErrorMessage>}
           <Button>Criar</Button>
         </form>
       </Container>

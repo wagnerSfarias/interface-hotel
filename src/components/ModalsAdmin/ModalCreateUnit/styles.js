@@ -20,6 +20,11 @@ export const Container = styled.div`
       font-weight: 400;
       margin-bottom: 10px;
     }
+    div {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+    }
   }
 `
 export const Label = styled.p``
@@ -30,7 +35,6 @@ export const Input = styled.input`
   border: ${props =>
     props.error || props.errorExist ? '1px solid #cc1717' : 'none'};
   width: 100%;
-  min-width: 280px;
   padding-left: 10px;
   font-size: 16px;
   border-radius: 5px;
@@ -40,15 +44,26 @@ export const LabelUpload = styled.label`
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
   border: 2px dashed #305369;
   border-radius: 5px;
-  padding: 10px;
-  width: 80%;
-
+  padding: 1px;
+  font-size: 25px;
+  width: 50%;
+  min-height: 80px;
+  height: auto;
+  &:hover {
+    opacity: 0.8;
+  }
   input {
     opacity: 0;
     width: 1px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
   }
 `
 export const Button = styled.button`
