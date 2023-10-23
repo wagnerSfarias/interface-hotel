@@ -49,8 +49,8 @@ export default function EditUnits() {
     loadUnits()
   }
 
-  function editProduct(product) {
-    setDetail(product)
+  function editUnit(detail) {
+    setDetail(detail)
     setEditModal(true)
   }
 
@@ -72,20 +72,20 @@ export default function EditUnits() {
             </TableHead>
             <TableBody>
               {units &&
-                units.map(product => (
+                units.map(unit => (
                   <TableRow
-                    key={product.id}
+                    key={unit.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {product.name}
+                      {unit.name}
                     </TableCell>
-                    <TableCell>{product.address}</TableCell>
+                    <TableCell>{unit.address}</TableCell>
                     <TableCell>
-                      <ImgUnit src={product.url} alt="imagem-unidade" />
+                      <ImgUnit src={unit.url} alt="imagem-unidade" />
                     </TableCell>
                     <TableCell>
-                      <EditIcon onClick={() => editProduct(product)} />
+                      <EditIcon onClick={() => editUnit(unit)} />
                     </TableCell>
                   </TableRow>
                 ))}
