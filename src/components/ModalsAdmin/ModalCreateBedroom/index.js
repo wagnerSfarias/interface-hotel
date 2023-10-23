@@ -13,11 +13,11 @@ import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import {
   Container,
+  ContainerInput,
   Label,
   Input,
   ReactSelectStyle,
   Carousel,
-  ContainerInputPrice,
   LabelUpload,
   Button
 } from './styles'
@@ -164,7 +164,7 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
       <Container>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <h2>Criar Quarto</h2>
-          <div>
+          <ContainerInput>
             <Label>Nome</Label>
             <Input
               type="text"
@@ -172,8 +172,8 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
               error={errors.name?.message}
             />
             <ErrorMessage>{errors.name?.message}</ErrorMessage>
-          </div>
-          <div>
+          </ContainerInput>
+          <ContainerInput>
             <Label>Acomoda</Label>
             <Input
               type="number"
@@ -181,36 +181,36 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
               error={errors.qtd_people?.message}
             />
             <ErrorMessage>{errors.qtd_people?.message}</ErrorMessage>
-          </div>
-          <div>
+          </ContainerInput>
+          <ContainerInput>
             <Label>Preço</Label>
-            <ContainerInputPrice>
+            <div>
               <Label>R$</Label>
               <Input
                 type="number"
                 {...register('price')}
                 error={errors.price?.message}
               />
-            </ContainerInputPrice>
+            </div>
 
             <ErrorMessage>{errors.price?.message}</ErrorMessage>
-          </div>
-          <div>
-            <Controller
-              name="id_unit"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <ReactSelectStyle
-                    {...field}
-                    options={units}
-                    placeholder="unidade..."
-                  />
-                )
-              }}
-            ></Controller>
-            <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
-          </div>
+          </ContainerInput>
+
+          <Controller
+            name="id_unit"
+            control={control}
+            render={({ field }) => {
+              return (
+                <ReactSelectStyle
+                  {...field}
+                  options={units}
+                  placeholder="unidade..."
+                />
+              )
+            }}
+          ></Controller>
+          <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
+
           <Carousel>
             {listFile.map((value, key) => (
               <LabelUpload key={key}>

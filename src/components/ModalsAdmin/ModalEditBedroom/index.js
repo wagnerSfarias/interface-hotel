@@ -13,11 +13,11 @@ import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import {
   Container,
+  ContainerInput,
   Label,
   Input,
   ReactSelectStyle,
   Carousel,
-  ContainerInputPrice,
   LabelUpload,
   Button
 } from '../ModalCreateBedroom/styles'
@@ -132,7 +132,7 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
       </Header>
       <Container>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          <ContainerInput>
             <Label>Nome</Label>
             <Input
               type="text"
@@ -141,8 +141,8 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
               error={errors.name?.message}
             />
             <ErrorMessage>{errors.name?.message}</ErrorMessage>
-          </div>
-          <div>
+          </ContainerInput>
+          <ContainerInput>
             <Label>Acomoda</Label>
             <Input
               type="number"
@@ -151,10 +151,10 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
               error={errors.qtd_people?.message}
             />
             <ErrorMessage>{errors.qtd_people?.message}</ErrorMessage>
-          </div>
-          <div>
+          </ContainerInput>
+          <ContainerInput>
             <Label>Preço</Label>
-            <ContainerInputPrice>
+            <div>
               <Label>R$</Label>
               <Input
                 type="number"
@@ -162,30 +162,29 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
                 {...register('price')}
                 error={errors.price?.message}
               />
-            </ContainerInputPrice>
-
+            </div>
             <ErrorMessage>{errors.price?.message}</ErrorMessage>
-          </div>
-          <div>
-            <Controller
-              name="id_unit"
-              defaultValue={details.select}
-              control={control}
-              render={({ field }) => {
-                return (
-                  <ReactSelectStyle
-                    {...field}
-                    options={units}
-                    getOptionLabel={cat => cat.name}
-                    getOptionValue={value => value.id}
-                    placeholder="unidade..."
-                    defaultValue={details.select}
-                  />
-                )
-              }}
-            ></Controller>
-            <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
-          </div>
+          </ContainerInput>
+
+          <Controller
+            name="id_unit"
+            defaultValue={details.select}
+            control={control}
+            render={({ field }) => {
+              return (
+                <ReactSelectStyle
+                  {...field}
+                  options={units}
+                  getOptionLabel={cat => cat.name}
+                  getOptionValue={value => value.id}
+                  placeholder="unidade..."
+                  defaultValue={details.select}
+                />
+              )
+            }}
+          ></Controller>
+          <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
+
           <Carousel>
             {listFile.map((value, key) => (
               <LabelUpload key={key}>
