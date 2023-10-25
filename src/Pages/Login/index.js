@@ -5,8 +5,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
-import LoginImg from '../../assets/logo.png'
-import { Button } from '../../components'
+import LoginImg from '../../assets/logo-login.png'
+import { Button, ErrorMessage } from '../../components'
 import paths from '../../constants/paths'
 import { useUser } from '../../hooks/UserContext'
 import api from '../../service/api'
@@ -18,7 +18,6 @@ import {
   Label,
   Input,
   SignInlink,
-  ErrorMessage,
   IconLoading
 } from './styles'
 
@@ -32,7 +31,7 @@ export function Login() {
       .required('O e-mail é obrigatório'),
     password: Yup.string()
       .required('A senha é obrigatória')
-      .min(6, 'A senha dete ter pelo menos 6 digítos')
+      .min(6, 'A senha deve ter pelo menos 6 digítos')
   })
 
   const {
@@ -102,7 +101,6 @@ export function Login() {
 
             <Button type="submit">Logar</Button>
           </form>
-
           <SignInlink>
             Não possui conta ?<Link to="/cadastro">Criar conta</Link>{' '}
           </SignInlink>

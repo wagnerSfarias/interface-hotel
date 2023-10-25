@@ -21,7 +21,7 @@ export const Container = styled.div`
 export const Form = styled.div`
   display: flex;
   max-width: 80%;
-  max-height: 80%;
+  max-height: 90%;
 `
 export const LoginImage = styled.img`
   width: 60%;
@@ -35,20 +35,21 @@ export const ContainerItens = styled.div`
   background: #e8eefe;
   border-radius: 0 10px 10px 0;
   width: 40%;
-  padding: 0 50px;
+  padding: 3% 2%;
   color: #fff;
-  position: relative;
 
   form {
     display: flex;
     flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
   }
   h1 {
     font-weight: 400;
     font-size: 28px;
     color: #7890f4;
     text-align: center;
-    margin: 50px 0 20px;
+    margin: 3% 0;
   }
 `
 export const Label = styled.p`
@@ -68,9 +69,7 @@ export const Input = styled.input`
 `
 export const SignInlink = styled.p`
   font-weight: 300;
-  position: absolute;
-  bottom: 5%;
-  right: 5%;
+  text-align: end;
   line-height: 16px;
   color: #5052ff;
   font-size: 16px;
@@ -86,12 +85,4 @@ export const SignInlink = styled.p`
       text-decoration: underline;
     }
   }
-`
-export const ErrorMessage = styled.p`
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
-  color: #cc1717;
-  margin-top: 5px;
 `

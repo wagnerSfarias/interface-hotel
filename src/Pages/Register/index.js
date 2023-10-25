@@ -5,20 +5,19 @@ import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
-import LoginImg from '../../assets/logo.png'
-import { Button } from '../../components'
+import LoginImg from '../../assets/logo-login.png'
+import { Button, ErrorMessage } from '../../components'
 import api from '../../service/api'
-import { IconLoading } from '../Login/styles'
 import {
+  IconLoading,
   Container,
   Form,
   ContainerItens,
   LoginImage,
   Label,
   Input,
-  SignInlink,
-  ErrorMessage
-} from './styles'
+  SignInlink
+} from '../Login/styles'
 
 export function Register() {
   const history = useHistory()
@@ -30,7 +29,7 @@ export function Register() {
       .required('O e-mail é obrigatório.'),
     password: Yup.string()
       .required('A senha é obrigatória.')
-      .min(6, 'A senha dete ter pelo menos 6 digítos.'),
+      .min(6, 'A senha deve ter pelo menos 6 digítos.'),
     confirmPassword: Yup.string()
       .required('A senha é obrigatória.')
       .oneOf([Yup.ref('password')], 'As senhas devem ser iguais.')
