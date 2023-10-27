@@ -1,3 +1,4 @@
+import { FaUserCog } from 'react-icons/fa'
 import { FiLogOut } from 'react-icons/fi'
 import styled from 'styled-components'
 
@@ -6,13 +7,13 @@ export const Container = styled.div`
   flex-direction: row;
   font-size: 18px;
   font-weight: 500;
-  padding: 0 20px;
+  padding: 0 30px 0 80px;
   align-items: center;
   justify-content: space-between;
 
   img {
-    width: 30%;
-    margin-left: 80px;
+    width: 100px;
+    height: 50px;
   }
 `
 export const ContainerLinks = styled.nav`
@@ -35,6 +36,9 @@ export const ContainerLinks = styled.nav`
     background-color: transparent;
     border: none;
   }
+`
+export const IconManage = styled(FaUserCog)`
+  font-size: 24px;
 `
 export const IconLogout = styled(FiLogOut)`
   color: #fff;
