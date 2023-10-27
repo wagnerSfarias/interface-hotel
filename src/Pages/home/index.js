@@ -1,5 +1,6 @@
 import React from 'react'
 
+import ImgHome from '../../assets/home.jpg'
 import { CarouselExperiences, Header, Units } from '../../components'
 import {
   Container,
@@ -10,8 +11,6 @@ import {
 } from './styles'
 
 export function Home() {
-  const ImgHome =
-    'https://github.com/wagnerSfarias/images/blob/main/images-hotel/home.jpg?raw=true'
   return (
     <Container>
       <Banner>

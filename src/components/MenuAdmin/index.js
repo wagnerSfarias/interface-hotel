@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { useHistory, Link } from 'react-router-dom'
 
+import Logo from '../../assets/logo-adm.svg'
 import { useUser } from '../../hooks/UserContext'
 import { IconLogout } from '../Header/styles'
 import listOptions from './menu-list'
@@ -10,9 +11,6 @@ import { Container, OptionContainer } from './styles'
 export function Menu({ path }) {
   const { logout } = useUser()
   const history = useHistory()
-
-  const Logo =
-    'https://raw.githubusercontent.com/wagnerSfarias/images/765758fe0da80a49b0a48d60d8d49c190969163e/images-hotel/logo.svg'
 
   const logoutUser = () => {
     logout()

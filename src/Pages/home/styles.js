@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-const Back =
-  'https://github.com/wagnerSfarias/images/blob/main/images-hotel/banner.jpg?raw=true'
+
+import Back from '../../assets/banner.jpg'
 
 export const Container = styled.div`
   min-height: 100vh;
