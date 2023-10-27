@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 
 import api from '../../../service/api'
 import formatDate from '../../../utils/formatDate'
+import { Container } from '../EditUnits/styles'
 import Row from './row'
 
 export default function ListReservations() {
@@ -58,7 +59,7 @@ export default function ListReservations() {
   }, [reservations])
 
   return (
-    <>
+    <Container>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
@@ -76,6 +77,6 @@ export default function ListReservations() {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Container>
   )
 }
