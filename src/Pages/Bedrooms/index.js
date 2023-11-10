@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { FaStar } from 'react-icons/fa'
 import Modal from 'react-modal'
+import { toast } from 'react-toastify'
 
 import { SubTitle, Header, ListAmenities, ModalBedroom } from '../../components'
 import api from '../../service/api'
@@ -23,18 +24,26 @@ export function Bedrooms({ location: { state } }) {
 
   useEffect(() => {
     async function loadBedroms() {
-      const { data } = await api.get(`/unit/bedrooms/`, {
-        params: { unit_id: state.unitId }
-      })
-      setListBedrooms(data)
+      try {
+        const { data } = await api.get(`/unit/bedrooms/`, {
+          params: { unit_id: state.unitId }
+        })
+        setListBedrooms(data)
+      } catch (err) {
+        toast.error('Falha no sistema! Tente novamente. ')
+      }
     }
     loadBedroms()
   }, [state.unitId])
 
   async function openModal(id) {
-    const { data } = await api.get(`/bedroom/${id}`)
-    setDetail(data)
-    setVisible(true)
+    try {
+      const { data } = await api.get(`/bedroom/${id}`)
+      setDetail(data)
+      setVisible(true)
+    } catch (err) {
+      toast.error('Falha no sistema! Tente novamente. ')
+    }
   }
 
   function closeModal() {
