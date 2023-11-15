@@ -4,9 +4,11 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { MdClose, MdUploadFile } from 'react-icons/md'
 import Modal from 'react-modal'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
+import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
 import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
@@ -17,6 +19,8 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
   const [file, setFile] = useState(null)
   const [error, setError] = useState(false)
   const [errorFile, setErrorFile] = useState(false)
+  const { logout } = useUser()
+  const history = useHistory()
 
   const customStyles = {
     content: {
@@ -62,6 +66,13 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
         } else if (status === 400) {
           toast.error('Nome da unidade já existe, tente usar outro nome.')
           setError(true)
+        } else if (status === 401) {
+          logout()
+          toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
+
+          setTimeout(() => {
+            history.push('/login')
+          }, 2000)
         } else {
           throw new Error()
         }

@@ -6,8 +6,10 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
 import formatDate from '../../../utils/formatDate'
 import { Container } from '../EditUnits/styles'
@@ -16,19 +18,34 @@ import Row from './row'
 export default function ListReservations() {
   const [reservations, setReservations] = useState([])
   const [rows, setRows] = useState([])
+  const { logout } = useUser()
+  const history = useHistory()
 
   useEffect(() => {
     async function loadReservations() {
       try {
-        const { data } = await api.get('/reservations')
+        const response = await api.get('/reservations', {
+          validateStatus: () => true
+        })
 
-        setReservations(data)
+        if (response.status === 200) {
+          setReservations(response.data)
+        } else if (response.status === 401) {
+          logout()
+          toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
+
+          setTimeout(() => {
+            history.push('/login')
+          }, 2000)
+        } else {
+          throw new Error()
+        }
       } catch (err) {
-        toast.error('Falha no sistema! Tente novamente. ')
+        toast.error('Falha no sistema! Tente novamente.')
       }
     }
     loadReservations()
-  }, [])
+  }, [logout, history])
 
   function createData(reservation) {
     const diffInMs =

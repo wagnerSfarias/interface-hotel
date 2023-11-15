@@ -22,7 +22,7 @@ import {
 
 export function ModalBedroom({ isOpen, onRequestClose, details }) {
   const history = useHistory()
-  const { userData } = useUser()
+  const { userData, logout } = useUser()
   const [checkin, setCheckin] = useState()
   const [checkout, setCheckout] = useState()
 
@@ -49,14 +49,29 @@ export function ModalBedroom({ isOpen, onRequestClose, details }) {
         toast.warn('É necessario selecionar as datas de check-in e check-out.')
       } else {
         try {
-          await api.post('/reservation', {
-            check_in: checkin,
-            check_out: checkout,
-            bedroom_id: details.id
-          })
+          const { status } = await api.post(
+            '/reservation',
+            {
+              check_in: checkin,
+              check_out: checkout,
+              bedroom_id: details.id
+            },
+            { validateStatus: () => true }
+          )
 
-          toast.success('Reserva realizada com sucesso !')
-          history.push('/reservas')
+          if (status === 200 || status === 201) {
+            toast.success('Reserva realizada!')
+            history.push('/reservas')
+          } else if (status === 401) {
+            logout()
+            toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
+
+            setTimeout(() => {
+              history.push('/login')
+            }, 2000)
+          } else {
+            throw new Error()
+          }
         } catch (err) {
           toast.error('Falha no sistema! Tente novamente. ')
         }
