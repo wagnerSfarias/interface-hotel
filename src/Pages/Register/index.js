@@ -58,7 +58,7 @@ export function Register() {
       )
 
       if (status === 201 || status === 200) {
-        toast.success('Usuário criado com sucesso.')
+        toast.success('Usuário criado.')
         history.goBack()
       } else if (status === 409) {
         toast.error('Email já cadastrado! Faça login para continuar.')
