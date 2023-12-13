@@ -5,8 +5,9 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Modal from 'react-modal'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import {
@@ -14,6 +15,7 @@ import {
   ButtonAdmin,
   ModalEditBedroom
 } from '../../../components'
+import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
 import Row from './row'
 import { Container } from './styles'
@@ -26,19 +28,34 @@ export default function EditBedroom() {
   const [rows, setRows] = useState([])
   const [editModal, setEditModal] = useState(false)
   const [createModal, setCreateModal] = useState(false)
+  const { logout } = useUser()
+  const history = useHistory()
 
-  async function loadBedrooms() {
+  const loadBedrooms = useCallback(async () => {
     try {
-      const { data } = await api.get('/bedrooms')
-      setBedrooms(data)
+      const response = await api.get('/bedrooms', {
+        validateStatus: () => true
+      })
+      if (response.status === 200 || response.status === 201) {
+        setBedrooms(response.data)
+      } else if (response.status === 401) {
+        logout()
+        toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
+
+        setTimeout(() => {
+          history.push('/login')
+        }, 2000)
+      } else {
+        throw new Error()
+      }
     } catch (err) {
       toast.error('Falha no sistema! Tente novamente. ')
     }
-  }
+  }, [])
 
   useEffect(() => {
     loadBedrooms()
-  }, [])
+  }, [loadBedrooms])
 
   function createData(bedroom) {
     return {
