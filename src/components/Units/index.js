@@ -33,7 +33,7 @@ export function Units() {
                 state: { unitId: unit.id, name: unit.name }
               }}
             >
-              <img src={unit.url} />
+              <img src={unit.url} alt={`imagem unidade ${unit.name}`} />
               <p>{unit.name}</p>
             </Button>
           ))}

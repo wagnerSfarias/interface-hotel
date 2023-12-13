@@ -7,6 +7,7 @@ export const ContainerUnits = styled.div`
   margin-top: 60px;
   margin-bottom: 30px;
   padding: 0 3%;
+  gap: 2%;
 `
 export const Button = styled(Link)`
   max-height: 250px;
@@ -21,7 +22,6 @@ export const Button = styled(Link)`
   img {
     border-radius: 10px;
     max-height: 250px;
-    /* height: 100%; */
     width: 100%;
   }
   p {
