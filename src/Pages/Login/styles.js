@@ -22,11 +22,25 @@ export const Form = styled.div`
   display: flex;
   max-width: 80%;
   max-height: 90%;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+  @media screen and (max-width: 480px) {
+    max-width: 100%;
+    max-height: 100%;
+    height: 100%;
+  }
 `
 export const LoginImage = styled.img`
   width: 60%;
   background: #fff;
   border-radius: 10px 0 0 10px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `
 export const ContainerItens = styled.div`
   display: flex;
@@ -41,7 +55,7 @@ export const ContainerItens = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
   }
   h1 {
@@ -50,6 +64,28 @@ export const ContainerItens = styled.div`
     color: #7890f4;
     text-align: center;
     margin: 3% 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    border-radius: 10px;
+
+    form {
+      width: 80%;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    height: 100%;
+    border-radius: 0;
+  }
+`
+export const Logo = styled.img`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
   }
 `
 export const Label = styled.p`
@@ -73,15 +109,16 @@ export const SignInlink = styled.p`
   line-height: 16px;
   color: #5052ff;
   font-size: 16px;
+  margin-right: 3%;
 
   a {
     cursor: pointer;
     text-decoration: none;
-    margin-left: 10px;
-    color: #5052ff;
+    margin-left: 1%;
+    color: #fe7569;
+    font-weight: 500;
 
     &:hover {
-      color: #fe7569;
       text-decoration: underline;
     }
   }

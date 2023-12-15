@@ -15,6 +15,7 @@ import {
   Form,
   ContainerItens,
   LoginImage,
+  Logo,
   Label,
   Input,
   SignInlink,
@@ -81,6 +82,7 @@ export function Login() {
       <Form>
         <LoginImage src={LoginImg} alt="login-image" />
         <ContainerItens>
+          <Logo src={LoginImg} alt="login-image" />
           <h1>Login</h1>
           <form noValidate onSubmit={handleSubmit(onsubmit)}>
             <Label>Email</Label>
