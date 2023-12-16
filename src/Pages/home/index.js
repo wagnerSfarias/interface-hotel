@@ -16,14 +16,16 @@ export function Home() {
       <Banner>
         <Header />
         <TitleBanner>
-          <h1>Hotel escolher um nome</h1>
+          <h1>GRAND HOTEL</h1>
           <h3>Você merece o que há de melhor.</h3>
         </TitleBanner>
       </Banner>
 
       <ContainerTitle>
-        Nosso objetivo é oferecer tranquilidade e bem-estar durante a sua
-        hospedagem.
+        <h2>
+          Nosso objetivo é oferecer tranquilidade e bem-estar durante a sua
+          hospedagem.
+        </h2>
       </ContainerTitle>
 
       <Description>
