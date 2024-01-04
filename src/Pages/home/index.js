@@ -1,7 +1,12 @@
 import React from 'react'
 
 import ImgHome from '../../assets/home.jpg'
-import { CarouselExperiences, Header, Units } from '../../components'
+import {
+  CarouselExperiences,
+  Header,
+  Units,
+  MenuMobile
+} from '../../components'
 import {
   Container,
   Banner,
@@ -13,6 +18,7 @@ import {
 export function Home() {
   return (
     <Container>
+      <MenuMobile />
       <Banner>
         <Header />
         <TitleBanner>

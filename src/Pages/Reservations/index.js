@@ -3,7 +3,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { SubTitle, Header } from '../../components'
+import { SubTitle, Header, MenuMobile } from '../../components'
 import { Warn } from '../../components/ModalBedroom/styles'
 import { useUser } from '../../hooks/UserContext'
 import api from '../../service/api'
@@ -73,40 +73,43 @@ export function Reservations() {
   }
 
   return (
-    <Container>
-      <Header />
-      <SubTitle isWhite={true}>Suas Reservas</SubTitle>
-      <ContainerReservations>
-        {reservations &&
-          reservations.map(reservation => (
-            <CardReservation key={reservation.id}>
-              <img src={reservation.bedroom.url} alt="imagem quarto" />
-              <Detail>
-                <h1>Quarto {reservation.bedroom.name}</h1>
-                <p>
-                  <FaMapMarkerAlt />
-                  {reservation.bedroom.unidade.address} -{' '}
-                  {reservation.bedroom.unidade.name}
-                </p>
-                <Dates>
-                  <div>
-                    <p>CHECK-IN</p>
-                    <p>{formatDate(reservation.check_in)}</p>
-                  </div>
-                  <div>
-                    <p>CHECK-OUT</p>
-                    <p>{formatDate(reservation.check_out)}</p>
-                  </div>
-                </Dates>
+    <>
+      <MenuMobile />
+      <Container>
+        <Header />
+        <SubTitle isWhite={true}>Suas Reservas</SubTitle>
+        <ContainerReservations>
+          {reservations &&
+            reservations.map(reservation => (
+              <CardReservation key={reservation.id}>
+                <img src={reservation.bedroom.url} alt="imagem quarto" />
+                <Detail>
+                  <h1>Quarto {reservation.bedroom.name}</h1>
+                  <p>
+                    <FaMapMarkerAlt />
+                    {reservation.bedroom.unidade.address} -{' '}
+                    {reservation.bedroom.unidade.name}
+                  </p>
+                  <Dates>
+                    <div>
+                      <p>CHECK-IN</p>
+                      <p>{formatDate(reservation.check_in)}</p>
+                    </div>
+                    <div>
+                      <p>CHECK-OUT</p>
+                      <p>{formatDate(reservation.check_out)}</p>
+                    </div>
+                  </Dates>
 
-                <button onClick={() => cancelReservation(reservation.id)}>
-                  Cancelar Reserva
-                </button>
-                <Warn> Entrada 15H | Saída 12H</Warn>
-              </Detail>
-            </CardReservation>
-          ))}
-      </ContainerReservations>
-    </Container>
+                  <button onClick={() => cancelReservation(reservation.id)}>
+                    Cancelar Reserva
+                  </button>
+                  <Warn> Entrada 15H | Saída 12H</Warn>
+                </Detail>
+              </CardReservation>
+            ))}
+        </ContainerReservations>
+      </Container>
+    </>
   )
 }

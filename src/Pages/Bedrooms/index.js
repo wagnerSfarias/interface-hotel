@@ -4,7 +4,13 @@ import { FaStar } from 'react-icons/fa'
 import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 
-import { SubTitle, Header, ListAmenities, ModalBedroom } from '../../components'
+import {
+  SubTitle,
+  Header,
+  ListAmenities,
+  ModalBedroom,
+  MenuMobile
+} from '../../components'
 import api from '../../service/api'
 import {
   Container,
@@ -52,6 +58,7 @@ export function Bedrooms({ location: { state } }) {
 
   return (
     <Container>
+      <MenuMobile />
       <Header />
       <SubTitle isWhite={true}>{state.name}</SubTitle>
       <ContainerBedrooms>
