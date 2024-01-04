@@ -1,14 +1,27 @@
-import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 
 import Logo from '../../assets/logo.svg'
 import { TooltipMui } from '../../components/TooltipMui'
+import { useMenu } from '../../hooks/MenuContext'
 import { useUser } from '../../hooks/UserContext'
-import { Container, ContainerLinks, IconManage, IconLogout } from './styles'
+import {
+  Container,
+  ContainerLinks,
+  IconManage,
+  IconLogout,
+  MenuMobile
+} from './styles'
 
 export function Header() {
   const { userData, logout } = useUser()
+  const { changeIsVisible } = useMenu()
   const history = useHistory()
+  const location = useLocation()
+
+  useEffect(() => {
+    changeIsVisible(false)
+  }, [location])
 
   const logoutUser = () => {
     logout()
@@ -35,14 +48,13 @@ export function Header() {
               </TooltipMui>
             )}
 
-            <button onClick={logoutUser}>
-              <IconLogout />
-            </button>
+            <IconLogout onClick={logoutUser} />
           </>
         ) : (
           <Link to="/login">Login</Link>
         )}
       </ContainerLinks>
+      <MenuMobile onClick={() => changeIsVisible(true)} />
     </Container>
   )
 }
