@@ -7,25 +7,43 @@ export const Container = styled.div`
 `
 export const ContainerReservations = styled.div`
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 768px;
+
+  @media screen and (max-width: 768px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 80%;
+  }
 `
 export const CardReservation = styled.div`
-  max-height: 250px;
   display: flex;
-  margin-bottom: 2%;
+  margin-bottom: 4%;
+  border-radius: 5px;
+  overflow: hidden;
+  max-height: 250px;
 
   img {
     max-height: 250px;
     width: 300px;
   }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    max-height: 100%;
+
+    img {
+      max-height: 230px;
+      width: 100%;
+    }
+  }
 `
 export const Detail = styled.div`
-  border-top-right-radius: 25px;
   width: 100%;
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  padding: 15px;
+  padding: 1% 3%;
   border-left: 2px dashed #305369;
 
   h1 {
@@ -51,6 +69,24 @@ export const Detail = styled.div`
 
     &:hover {
       transform: scale(1.1);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    border: 0;
+    border-top: 2px dashed #305369;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    button {
+      align-self: center;
+      font-weight: 500;
+
+      &:hover {
+        transform: none;
+      }
     }
   }
 `
