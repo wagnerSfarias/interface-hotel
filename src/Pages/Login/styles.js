@@ -11,7 +11,7 @@ export const IconLoading = styled(FaCircleNotch)`
   color: #3498db;
 `
 export const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -29,8 +29,7 @@ export const Form = styled.div`
   }
   @media screen and (max-width: 480px) {
     max-width: 100%;
-    max-height: 100%;
-    height: 100%;
+    height: 100vh;
   }
 `
 export const LoginImage = styled.img`
@@ -69,6 +68,7 @@ export const ContainerItens = styled.div`
   @media screen and (max-width: 768px) {
     width: 100%;
     border-radius: 10px;
+    padding-bottom: 10%;
 
     form {
       width: 80%;
@@ -76,7 +76,10 @@ export const ContainerItens = styled.div`
   }
   @media screen and (max-width: 480px) {
     height: 100%;
+    justify-content: flex-start;
     border-radius: 0;
+    overflow-y: scroll;
+    padding-bottom: 40%;
   }
 `
 export const Logo = styled.img`
