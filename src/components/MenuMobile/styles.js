@@ -68,7 +68,7 @@ export const Close = styled(MdClose)`
   position: absolute;
   top: 2%;
   left: 2%;
-  font-size: 28px;
+  font-size: 30px;
 `
 export const ContainerNav = styled.nav`
   display: flex;
@@ -80,17 +80,13 @@ export const ContainerNav = styled.nav`
 `
 export const BtnLogout = styled.button`
   position: absolute;
-  bottom: 5%;
+  top: 20px;
   right: 5%;
   display: flex;
-  align-items: center;
-  gap: 6%;
   background: transparent;
   color: #fff;
-  font-size: 20px;
-  padding: 2%;
-  border: 1px solid #fff;
-  border-radius: 5%;
+  font-size: 30px;
+  border: none;
 `
 export const BtnSignIn = styled.button`
   display: flex;

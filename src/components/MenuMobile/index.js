@@ -40,7 +40,6 @@ export function MenuMobile() {
               {userData.admin && <Link to="/admin/reservas">Painel Admin</Link>}
 
               <BtnLogout onClick={logoutUser}>
-                Sair
                 <IconLogout />
               </BtnLogout>
             </>
