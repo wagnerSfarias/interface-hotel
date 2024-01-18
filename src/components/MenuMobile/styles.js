@@ -23,6 +23,7 @@ export const Background = styled.div`
       pointer-events: auto;
       transform: translateY(0px);
       height: 100vh;
+      z-index: 99;
     `}
 `
 export const Container = styled.div`
