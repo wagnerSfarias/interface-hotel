@@ -12,7 +12,7 @@ export const Container = styled.div`
   justify-content: space-between;
 
   img {
-    height: 50px;
+    height: 60px;
   }
 
   @media screen and (max-width: 768px) {
