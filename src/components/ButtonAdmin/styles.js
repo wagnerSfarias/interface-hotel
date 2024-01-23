@@ -40,4 +40,17 @@ export const Button = styled.button`
     align-items: center;
     justify-content: center;
   }
+
+  @media screen and (max-width: 768px) {
+    background: #fe7569;
+    color: #fff;
+    border-radius: 10px;
+    width: 210px;
+    &:hover:before {
+      display: none;
+    }
+    &:hover::after {
+      display: none;
+    }
+  }
 `
