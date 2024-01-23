@@ -9,12 +9,29 @@ export const Container = styled.div`
   padding-top: 2%;
 
   img {
-    height: 50px;
+    height: 45px;
+    padding-bottom: 1%;
   }
 
   button {
     background-color: transparent;
     border: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    justify-content: end;
+    padding: 2% 3%;
+    background: transparent;
+
+    svg {
+      color: #305369;
+    }
+    img {
+      display: none;
+    }
+    button {
+      display: none;
+    }
   }
 `
 export const OptionContainer = styled.div`
@@ -42,5 +59,9 @@ export const OptionContainer = styled.div`
     a {
       color: #305369;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 `

@@ -1,16 +1,24 @@
 import PropTypes from 'prop-types'
-import React from 'react'
-import { useHistory, Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useHistory, useLocation, Link } from 'react-router-dom'
 
-import Logo from '../../assets/logo-adm.svg'
+import Logo from '../../assets/logo.png'
+import { useMenu } from '../../hooks/MenuContext'
 import { useUser } from '../../hooks/UserContext'
-import { IconLogout } from '../Header/styles'
+import { IconLogout, MenuMobile } from '../Header/styles'
 import listOptions from './menu-list'
 import { Container, OptionContainer } from './styles'
 
 export function Menu({ path }) {
   const { logout } = useUser()
   const history = useHistory()
+  const location = useLocation()
+
+  const { changeIsVisible } = useMenu()
+
+  useEffect(() => {
+    changeIsVisible(false)
+  }, [location])
 
   const logoutUser = () => {
     logout()
@@ -26,6 +34,9 @@ export function Menu({ path }) {
           <Link to={option.link}>{option.label}</Link>
         </OptionContainer>
       ))}
+
+      <MenuMobile onClick={() => changeIsVisible(true)} />
+
       <button onClick={logoutUser}>
         <IconLogout />
       </button>
