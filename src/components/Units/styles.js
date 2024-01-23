@@ -22,6 +22,7 @@ export const Button = styled(Link)`
   border: none;
   cursor: pointer;
   transition: all 0.5s ease-in-out;
+  width: 100%;
 
   &:hover {
     transform: scale(1.1);
@@ -47,9 +48,13 @@ export const Button = styled(Link)`
 
   @media screen and (max-width: 768px) {
     margin-bottom: 3%;
+    width: 60%;
 
     &:hover {
       transform: none;
     }
+  }
+  @media screen and (max-width: 480px) {
+    width: 100%;
   }
 `
