@@ -4,6 +4,26 @@ import styled from 'styled-components'
 import 'react-date-picker/dist/DatePicker.css'
 import 'react-calendar/dist/Calendar.css'
 
+export const ModalContent = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 90vh;
+  overflow: auto;
+  width: 60%;
+  background: #fff;
+
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+`
 export const Header = styled.div`
   display: flex;
   align-items: center;
@@ -29,6 +49,11 @@ export const Back = styled.button`
 export const ContainerCarousel = styled(Carousel)`
   width: 100%;
   max-height: 450px;
+  height: 100%;
+
+  @media screen and (max-width: 768px) {
+    max-height: 400px;
+  }
 
   .rec-carousel {
     margin: 0;
@@ -71,11 +96,20 @@ export const ContainerCarousel = styled(Carousel)`
 `
 export const Image = styled.img`
   width: 100%;
-  max-height: 450px;
+  max-height: 350px;
+  height: 100%;
+
+  @media screen and (max-width: 970px) {
+    max-height: 290px;
+  }
+  @media screen and (max-width: 768px) {
+    max-height: 260px;
+  }
 `
 export const ContainerDates = styled.div`
   display: flex;
   justify-content: space-around;
+  margin: 2% 0;
 
   .react-date-picker__wrapper {
     border: none;
@@ -99,11 +133,20 @@ export const Calendar = styled.div`
     font-size: 20px;
     text-align: center;
   }
+  @media screen and (max-width: 480px) {
+    p {
+      font-size: 18px;
+    }
+  }
 `
 export const Warn = styled.p`
   margin: 2%;
   color: #305369;
   font-weight: 500;
+
+  @media screen and (max-width: 480px) {
+    font-size: 14px;
+  }
 `
 export const WarnCancel = styled.p`
   margin: 2%;
@@ -130,5 +173,11 @@ export const Reservation = styled.button`
   }
   &:active {
     opacity: 0.6;
+  }
+
+  @media screen and (max-width: 768px) {
+    &:hover {
+      opacity: 1;
+    }
   }
 `

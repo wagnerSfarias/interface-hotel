@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { FaStar } from 'react-icons/fa'
-import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 
 import {
@@ -20,8 +19,6 @@ import {
   Price,
   Detail
 } from './styles'
-
-Modal.setAppElement('#root')
 
 export function Bedrooms({ location: { state } }) {
   const [listBedrooms, setListBedrooms] = useState([])

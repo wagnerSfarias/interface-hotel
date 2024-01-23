@@ -1,8 +1,8 @@
+import Modal from '@mui/material/Modal'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import DatePicker from 'react-date-picker'
 import { MdClose } from 'react-icons/md'
-import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -17,7 +17,8 @@ import {
   Calendar,
   Warn,
   Reservation,
-  WarnCancel
+  WarnCancel,
+  ModalContent
 } from './styles'
 
 export function ModalBedroom({ isOpen, onRequestClose, details }) {
@@ -25,20 +26,6 @@ export function ModalBedroom({ isOpen, onRequestClose, details }) {
   const { userData, logout } = useUser()
   const [checkin, setCheckin] = useState()
   const [checkout, setCheckout] = useState()
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      height: '80vh',
-      width: '60%',
-      padding: '0'
-    }
-  }
 
   async function handleReservation() {
     if (!userData) {
@@ -80,45 +67,47 @@ export function ModalBedroom({ isOpen, onRequestClose, details }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <Header>
-        <Back onClick={onRequestClose}>
-          <MdClose />
-        </Back>
-        <p>{details.name}</p>
-      </Header>
-      <ContainerCarousel>
-        <Image src={details.url} alt="imagem do quarto" />
-        <Image src={details.url_l} alt="imagem do quarto" />
-        <Image src={details.url_r} alt="imagem do quarto" />
-      </ContainerCarousel>
+    <Modal open={isOpen} onClose={onRequestClose}>
+      <ModalContent>
+        <Header>
+          <Back onClick={onRequestClose}>
+            <MdClose />
+          </Back>
+          <p>{details.name}</p>
+        </Header>
+        <ContainerCarousel>
+          <Image src={details.url} alt="imagem do quarto" />
+          <Image src={details.url_l} alt="imagem do quarto" />
+          <Image src={details.url_r} alt="imagem do quarto" />
+        </ContainerCarousel>
 
-      <ContainerDates>
-        <Calendar>
-          <p>CHECK-IN</p>
-          <DatePicker
-            value={checkin}
-            minDate={new Date()}
-            onChange={date => {
-              setCheckin(date)
-            }}
-          />
-        </Calendar>
-        <Calendar>
-          <p>CHECK-OUT</p>
-          <DatePicker
-            value={checkout}
-            minDate={checkin}
-            onChange={date => {
-              setCheckout(date)
-            }}
-          />
-        </Calendar>
-      </ContainerDates>
+        <ContainerDates>
+          <Calendar>
+            <p>CHECK-IN</p>
+            <DatePicker
+              value={checkin}
+              minDate={new Date()}
+              onChange={date => {
+                setCheckin(date)
+              }}
+            />
+          </Calendar>
+          <Calendar>
+            <p>CHECK-OUT</p>
+            <DatePicker
+              value={checkout}
+              minDate={checkin}
+              onChange={date => {
+                setCheckout(date)
+              }}
+            />
+          </Calendar>
+        </ContainerDates>
 
-      <Warn>Entrada 15H | Saída 12H</Warn>
-      <Reservation onClick={handleReservation}>Reservar</Reservation>
-      <WarnCancel>Cancelamento até 24 horas antes.</WarnCancel>
+        <Warn>Entrada 15H | Saída 12H</Warn>
+        <Reservation onClick={handleReservation}>Reservar</Reservation>
+        <WarnCancel>Cancelamento até 24 horas antes.</WarnCancel>
+      </ModalContent>
     </Modal>
   )
 }
