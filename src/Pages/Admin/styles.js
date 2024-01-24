@@ -14,22 +14,26 @@ export const Container = styled.div`
 `
 export const ContainerPages = styled.div`
   padding: 30px;
+
+  @media screen and (max-width: 768px) {
+    padding: 30px 3%;
+  }
 `
 export const Icon = styled(MdHome)`
   z-index: 99;
   font-size: 30px;
 `
 export const ButtonHome = styled(Link)`
-  position: absolute;
-  top: 11%;
+  position: relative;
+  margin-top: 1%;
   left: 6%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #323d5d;
+  z-index: 1;
   background-color: transparent;
-
   overflow: hidden;
   width: 60px;
   height: 60px;
@@ -50,5 +54,17 @@ export const ButtonHome = styled(Link)`
     background-color: #dadbf5;
     inset: 5px;
     border-radius: inherit;
+  }
+
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    left: 4%;
+    border-radius: 0;
+
+    &:hover:before {
+      display: none;
+    }
   }
 `

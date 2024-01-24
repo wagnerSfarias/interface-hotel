@@ -22,6 +22,7 @@ export const Container = styled.div`
     justify-content: end;
     padding: 2% 3%;
     background: transparent;
+    height: 60px;
 
     svg {
       color: #305369;

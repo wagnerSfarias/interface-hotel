@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { Menu, TooltipMui } from '../../components'
+import { Menu, TooltipMui, AdminMobile } from '../../components'
 import paths from '../../constants/paths'
 import EditBedroom from './EditBedroom'
 import EditUnits from './EditUnits'
@@ -11,6 +11,7 @@ import { Container, ContainerPages, ButtonHome, Icon } from './styles'
 export function Admin({ match: { path } }) {
   return (
     <Container>
+      <AdminMobile />
       <Menu path={path} />
       <TooltipMui title="Tela Inicial">
         <ButtonHome to="/">
