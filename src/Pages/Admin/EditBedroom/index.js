@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState, useCallback } from 'react'
-import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -19,8 +18,6 @@ import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
 import Row from './row'
 import { Container } from './styles'
-
-Modal.setAppElement('#root')
 
 export default function EditBedroom() {
   const [bedrooms, setBedrooms] = useState([])
@@ -41,7 +38,6 @@ export default function EditBedroom() {
       } else if (response.status === 401) {
         logout()
         toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
-
         setTimeout(() => {
           history.push('/login')
         }, 2000)

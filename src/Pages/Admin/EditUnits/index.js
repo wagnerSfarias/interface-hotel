@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
-import Modal from 'react-modal'
 import { toast } from 'react-toastify'
 
 import {
@@ -16,8 +15,6 @@ import {
 } from '../../../components'
 import api from '../../../service/api'
 import { Container, ImgUnit, EditIcon } from './styles'
-
-Modal.setAppElement('#root')
 
 export default function EditUnits() {
   const [units, setUnits] = useState([])

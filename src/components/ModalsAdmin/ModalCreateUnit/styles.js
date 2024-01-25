@@ -1,9 +1,31 @@
 import styled from 'styled-components'
 
+export const ModalContentAdmin = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 80vh;
+  width: 40%;
+  background: #dadbf5;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  @media screen and (max-width: 970px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 60%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 100%;
+  }
+`
+
 export const Container = styled.div`
   width: 100%;
   height: 90%;
-  padding: 0 15%;
+  padding: 15%;
 
   form {
     width: 100%;
@@ -20,12 +42,20 @@ export const Container = styled.div`
       font-weight: 400;
       margin-bottom: 10px;
     }
-    div {
-      display: flex;
-      flex-direction: column;
-      width: 80%;
+  }
+
+  @media screen and (max-width: 970px) {
+    padding: 10% 0;
+
+    h2 {
+      font-size: 22px;
     }
   }
+`
+export const ContainerInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 `
 export const Label = styled.p``
 export const Input = styled.input`
@@ -49,9 +79,10 @@ export const LabelUpload = styled.label`
   border-radius: 5px;
   padding: 1px;
   font-size: 25px;
-  width: 50%;
+  width: 60%;
   min-height: 80px;
-  height: auto;
+  height: 150px;
+
   &:hover {
     opacity: 0.8;
   }

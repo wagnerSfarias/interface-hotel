@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import Modal from '@mui/material/Modal'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { MdClose } from 'react-icons/md'
-import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
@@ -16,13 +16,16 @@ import { Header, Back } from '../../ModalBedroom/styles'
 import {
   Container,
   ContainerInput,
-  Label,
-  Input,
   ReactSelectStyle,
   Carousel,
-  LabelUpload,
-  Button
+  LabelUpload
 } from '../ModalCreateBedroom/styles'
+import {
+  ModalContentAdmin,
+  Label,
+  Input,
+  Button
+} from '../ModalCreateUnit/styles'
 
 export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
   const [units, setUnits] = useState([])
@@ -46,21 +49,6 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
     }
     loadUnits()
   }, [])
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      height: '70vh',
-      width: '40%',
-      padding: '0',
-      background: '#dadbf5'
-    }
-  }
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome da unidade.'),
@@ -113,7 +101,6 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
         throw new Error()
       }
     } catch (err) {
-      console.log(err)
       toast.error('Falha no sistema tente novamente!')
     }
   }
@@ -134,86 +121,88 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <Header>
-        <Back onClick={onRequestClose}>
-          <MdClose />
-        </Back>
-        <p>{details.name}</p>
-      </Header>
-      <Container>
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <ContainerInput>
-            <Label>Nome</Label>
-            <Input
-              type="text"
-              defaultValue={details.name}
-              {...register('name')}
-              error={errors.name?.message}
-            />
-            <ErrorMessage>{errors.name?.message}</ErrorMessage>
-          </ContainerInput>
-          <ContainerInput>
-            <Label>Acomoda</Label>
-            <Input
-              type="number"
-              defaultValue={details.qtd_people}
-              {...register('qtd_people')}
-              error={errors.qtd_people?.message}
-            />
-            <ErrorMessage>{errors.qtd_people?.message}</ErrorMessage>
-          </ContainerInput>
-          <ContainerInput>
-            <Label>Preço</Label>
-            <div>
-              <Label>R$</Label>
+    <Modal open={isOpen} onClose={onRequestClose}>
+      <ModalContentAdmin>
+        <Header>
+          <Back onClick={onRequestClose}>
+            <MdClose />
+          </Back>
+          <p>{details.name}</p>
+        </Header>
+        <Container>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <ContainerInput>
+              <Label>Nome</Label>
+              <Input
+                type="text"
+                defaultValue={details.name}
+                {...register('name')}
+                error={errors.name?.message}
+              />
+              <ErrorMessage>{errors.name?.message}</ErrorMessage>
+            </ContainerInput>
+            <ContainerInput>
+              <Label>Acomoda</Label>
               <Input
                 type="number"
-                defaultValue={details.price}
-                {...register('price')}
-                error={errors.price?.message}
+                defaultValue={details.qtd_people}
+                {...register('qtd_people')}
+                error={errors.qtd_people?.message}
               />
-            </div>
-            <ErrorMessage>{errors.price?.message}</ErrorMessage>
-          </ContainerInput>
+              <ErrorMessage>{errors.qtd_people?.message}</ErrorMessage>
+            </ContainerInput>
+            <ContainerInput>
+              <Label>Preço</Label>
+              <div>
+                <Label>R$</Label>
+                <Input
+                  type="number"
+                  defaultValue={details.price}
+                  {...register('price')}
+                  error={errors.price?.message}
+                />
+              </div>
+              <ErrorMessage>{errors.price?.message}</ErrorMessage>
+            </ContainerInput>
 
-          <Controller
-            name="id_unit"
-            defaultValue={details.select}
-            control={control}
-            render={({ field }) => {
-              return (
-                <ReactSelectStyle
-                  {...field}
-                  options={units}
-                  getOptionLabel={cat => cat.name}
-                  getOptionValue={value => value.id}
-                  placeholder="unidade..."
-                  defaultValue={details.select}
-                />
-              )
-            }}
-          ></Controller>
-          <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
+            <Controller
+              name="id_unit"
+              defaultValue={details.select}
+              control={control}
+              render={({ field }) => {
+                return (
+                  <ReactSelectStyle
+                    {...field}
+                    options={units}
+                    getOptionLabel={cat => cat.name}
+                    getOptionValue={value => value.id}
+                    placeholder="unidade..."
+                    defaultValue={details.select}
+                  />
+                )
+              }}
+            ></Controller>
+            <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
 
-          <Carousel>
-            {listFile.map((value, key) => (
-              <LabelUpload key={key}>
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  onChange={e => handleUpdateFile(e, key)}
-                />
-                <img
-                  src={value.url ? value?.url : URL.createObjectURL(value)}
-                  alt="imagem-quarto"
-                />
-              </LabelUpload>
-            ))}
-          </Carousel>
-          <Button>Editar</Button>
-        </form>
-      </Container>
+            <Carousel>
+              {listFile.map((value, key) => (
+                <LabelUpload key={key}>
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    onChange={e => handleUpdateFile(e, key)}
+                  />
+                  <img
+                    src={value.url ? value?.url : URL.createObjectURL(value)}
+                    alt="imagem-quarto"
+                  />
+                </LabelUpload>
+              ))}
+            </Carousel>
+            <Button>Editar</Button>
+          </form>
+        </Container>
+      </ModalContentAdmin>
     </Modal>
   )
 }

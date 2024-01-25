@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import Modal from '@mui/material/Modal'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { MdClose, MdUploadFile } from 'react-icons/md'
-import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
@@ -13,7 +13,15 @@ import api from '../../../service/api'
 import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
-import { Container, Label, Input, LabelUpload, Button } from './styles'
+import {
+  ModalContentAdmin,
+  Container,
+  ContainerInput,
+  Label,
+  Input,
+  LabelUpload,
+  Button
+} from './styles'
 
 export function ModalCreateUnit({ isOpen, onRequestClose }) {
   const [file, setFile] = useState(null)
@@ -21,21 +29,6 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
   const [errorFile, setErrorFile] = useState(false)
   const { logout } = useUser()
   const history = useHistory()
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      height: '70vh',
-      width: '40%',
-      padding: '0',
-      background: '#dadbf5'
-    }
-  }
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome da unidade.'),
@@ -96,52 +89,55 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <Header>
-        <Back onClick={onRequestClose}>
-          <MdClose />
-        </Back>
-      </Header>
-      <Container>
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <h2>Criar Unidade</h2>
-          <div>
-            <Label>Name</Label>
-            <Input
-              type="text"
-              {...register('name')}
-              error={errors.name?.message}
-              errorExist={error}
-            />
-            <ErrorMessage>{errors.name?.message}</ErrorMessage>
-            {error && <ErrorMessage>Nome da unidade já existe.</ErrorMessage>}
-          </div>
-          <div>
-            <Label>Endereço</Label>
-            <Input
-              type="text"
-              {...register('address')}
-              error={errors.address?.message}
-            />
-            <ErrorMessage>{errors.address?.message}</ErrorMessage>
-          </div>
-          <LabelUpload>
-            {file ? (
-              <img src={URL.createObjectURL(file)} alt="imagem-unidade" />
-            ) : (
-              <MdUploadFile />
-            )}
+    <Modal open={isOpen} onClose={onRequestClose}>
+      <ModalContentAdmin>
+        <Header>
+          <Back onClick={onRequestClose}>
+            <MdClose />
+          </Back>
+        </Header>
+        <Container>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <h2>Criar Unidade</h2>
+            <ContainerInput>
+              <Label>Name</Label>
+              <Input
+                type="text"
+                {...register('name')}
+                error={errors.name?.message}
+                errorExist={error}
+              />
+              <ErrorMessage>{errors.name?.message}</ErrorMessage>
+              {error && <ErrorMessage>Nome da unidade já existe.</ErrorMessage>}
+            </ContainerInput>
+            <ContainerInput>
+              <Label>Endereço</Label>
+              <Input
+                type="text"
+                {...register('address')}
+                error={errors.address?.message}
+              />
+              <ErrorMessage>{errors.address?.message}</ErrorMessage>
+            </ContainerInput>
 
-            <input
-              type="file"
-              accept="image/png, image/jpeg"
-              onChange={handleFile}
-            />
-          </LabelUpload>
-          {errorFile && <ErrorMessage>Carregue uma imagem</ErrorMessage>}
-          <Button>Criar</Button>
-        </form>
-      </Container>
+            <LabelUpload>
+              {file ? (
+                <img src={URL.createObjectURL(file)} alt="imagem-unidade" />
+              ) : (
+                <MdUploadFile />
+              )}
+
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                onChange={handleFile}
+              />
+            </LabelUpload>
+            {errorFile && <ErrorMessage>Carregue uma imagem</ErrorMessage>}
+            <Button>Criar</Button>
+          </form>
+        </Container>
+      </ModalContentAdmin>
     </Modal>
   )
 }

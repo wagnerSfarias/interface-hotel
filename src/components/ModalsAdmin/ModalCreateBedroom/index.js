@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import Modal from '@mui/material/Modal'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { MdClose, MdUploadFile } from 'react-icons/md'
-import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
@@ -14,14 +14,17 @@ import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import {
-  Container,
-  ContainerInput,
+  ModalContentAdmin,
   Label,
   Input,
+  Button
+} from '../ModalCreateUnit/styles'
+import {
+  Container,
+  ContainerInput,
   ReactSelectStyle,
   Carousel,
-  LabelUpload,
-  Button
+  LabelUpload
 } from './styles'
 
 export function ModalCreateBedroom({ isOpen, onRequestClose }) {
@@ -48,20 +51,6 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
     loadUnits()
   }, [])
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      height: '70vh',
-      width: '40%',
-      padding: '0',
-      background: '#dadbf5'
-    }
-  }
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome da unidade.'),
     qtd_people: Yup.number()
@@ -166,95 +155,99 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <Header>
-        <Back onClick={onRequestClose}>
-          <MdClose />
-        </Back>
-      </Header>
-      <Container>
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <h2>Criar Quarto</h2>
-          <ContainerInput>
-            <Label>Nome</Label>
-            <Input
-              type="text"
-              {...register('name')}
-              error={errors.name?.message}
-            />
-            <ErrorMessage>{errors.name?.message}</ErrorMessage>
-          </ContainerInput>
-          <ContainerInput>
-            <Label>Acomoda</Label>
-            <Input
-              type="number"
-              {...register('qtd_people')}
-              error={errors.qtd_people?.message}
-            />
-            <ErrorMessage>{errors.qtd_people?.message}</ErrorMessage>
-          </ContainerInput>
-          <ContainerInput>
-            <Label>Preço</Label>
-            <div>
-              <Label>R$</Label>
+    <Modal open={isOpen} onClose={onRequestClose}>
+      <ModalContentAdmin>
+        <Header>
+          <Back onClick={onRequestClose}>
+            <MdClose />
+          </Back>
+        </Header>
+        <Container>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <h2>Criar Quarto</h2>
+            <ContainerInput>
+              <Label>Nome</Label>
+              <Input
+                type="text"
+                {...register('name')}
+                error={errors.name?.message}
+              />
+              <ErrorMessage>{errors.name?.message}</ErrorMessage>
+            </ContainerInput>
+            <ContainerInput>
+              <Label>Acomoda</Label>
               <Input
                 type="number"
-                {...register('price')}
-                error={errors.price?.message}
+                {...register('qtd_people')}
+                error={errors.qtd_people?.message}
               />
-            </div>
-
-            <ErrorMessage>{errors.price?.message}</ErrorMessage>
-          </ContainerInput>
-
-          <Controller
-            name="id_unit"
-            control={control}
-            render={({ field }) => {
-              return (
-                <ReactSelectStyle
-                  {...field}
-                  options={units}
-                  placeholder="unidade..."
+              <ErrorMessage>{errors.qtd_people?.message}</ErrorMessage>
+            </ContainerInput>
+            <ContainerInput>
+              <Label>Preço</Label>
+              <div>
+                <Label>R$</Label>
+                <Input
+                  type="number"
+                  {...register('price')}
+                  error={errors.price?.message}
                 />
-              )
-            }}
-          ></Controller>
-          <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
+              </div>
 
-          <Carousel>
-            {listFile.map((value, key) => (
-              <LabelUpload key={key}>
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  onChange={e => handleUpdateFile(e, value.name)}
-                />
+              <ErrorMessage>{errors.price?.message}</ErrorMessage>
+            </ContainerInput>
 
-                <img src={URL.createObjectURL(value)} />
-              </LabelUpload>
-            ))}
-            {listFile.length === 3 ? (
-              <></>
-            ) : (
-              <>
-                <LabelUpload>
-                  <MdUploadFile />
+            <Controller
+              name="id_unit"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <ReactSelectStyle
+                    {...field}
+                    options={units}
+                    placeholder="unidade..."
+                  />
+                )
+              }}
+            ></Controller>
+            <ErrorMessage>{errors.id_unit?.message}</ErrorMessage>
+
+            <Carousel>
+              {listFile.map((value, key) => (
+                <LabelUpload key={key}>
                   <input
                     type="file"
                     accept="image/png, image/jpeg"
-                    onChange={handleFile}
+                    onChange={e => handleUpdateFile(e, value.name)}
                   />
+
+                  <img src={URL.createObjectURL(value)} />
                 </LabelUpload>
-              </>
+              ))}
+              {listFile.length === 3 ? (
+                <></>
+              ) : (
+                <>
+                  <LabelUpload>
+                    <MdUploadFile />
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      onChange={handleFile}
+                    />
+                  </LabelUpload>
+                </>
+              )}
+            </Carousel>
+
+            {errorFile && (
+              <ErrorMessage>Carregue todas as imagens</ErrorMessage>
             )}
-          </Carousel>
 
-          {errorFile && <ErrorMessage>Carregue todas as imagens</ErrorMessage>}
-
-          <Button>Criar</Button>
-        </form>
-      </Container>
+            <Button>Criar</Button>
+          </form>
+        </Container>
+      </ModalContentAdmin>
     </Modal>
   )
 }

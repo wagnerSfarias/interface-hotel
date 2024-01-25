@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import Modal from '@mui/material/Modal'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { MdClose } from 'react-icons/md'
-import Modal from 'react-modal'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
@@ -14,7 +14,9 @@ import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
 import { Header, Back } from '../../ModalBedroom/styles'
 import {
+  ModalContentAdmin,
   Container,
+  ContainerInput,
   Label,
   Input,
   LabelUpload,
@@ -26,21 +28,6 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
   const [error, setError] = useState(false)
   const { logout } = useUser()
   const history = useHistory()
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      height: '70vh',
-      width: '40%',
-      padding: '0',
-      background: '#dadbf5'
-    }
-  }
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome da unidade.'),
@@ -97,55 +84,57 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={customStyles}>
-      <Header>
-        <Back onClick={onRequestClose}>
-          <MdClose />
-        </Back>
-        <p>{details.name}</p>
-      </Header>
-      <Container>
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <Label>Name</Label>
-            <Input
-              type="text"
-              {...register('name')}
-              errorExist={error}
-              error={errors.name?.message}
-              defaultValue={details.name}
-            />
-            <ErrorMessage>{errors.name?.message}</ErrorMessage>
-            {error && <ErrorMessage>Nome da unidade já existe.</ErrorMessage>}
-          </div>
-          <div>
-            <Label>Endereço</Label>
-            <Input
-              type="text"
-              {...register('address')}
-              defaultValue={details.address}
-              error={errors.address?.message}
-            />
-            <ErrorMessage>{errors.address?.message}</ErrorMessage>
-          </div>
+    <Modal open={isOpen} onClose={onRequestClose}>
+      <ModalContentAdmin>
+        <Header>
+          <Back onClick={onRequestClose}>
+            <MdClose />
+          </Back>
+          <p>{details.name}</p>
+        </Header>
+        <Container>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <ContainerInput>
+              <Label>Name</Label>
+              <Input
+                type="text"
+                {...register('name')}
+                errorExist={error}
+                error={errors.name?.message}
+                defaultValue={details.name}
+              />
+              <ErrorMessage>{errors.name?.message}</ErrorMessage>
+              {error && <ErrorMessage>Nome da unidade já existe.</ErrorMessage>}
+            </ContainerInput>
+            <ContainerInput>
+              <Label>Endereço</Label>
+              <Input
+                type="text"
+                {...register('address')}
+                defaultValue={details.address}
+                error={errors.address?.message}
+              />
+              <ErrorMessage>{errors.address?.message}</ErrorMessage>
+            </ContainerInput>
 
-          <LabelUpload>
-            <img
-              src={file ? URL.createObjectURL(file) : details.url}
-              alt="imagem-unidade"
-            />
+            <LabelUpload>
+              <img
+                src={file ? URL.createObjectURL(file) : details.url}
+                alt="imagem-unidade"
+              />
 
-            <input
-              type="file"
-              accept="image/png, image/jpeg"
-              onChange={handleFile}
-            />
-          </LabelUpload>
-          <ErrorMessage>{errors.file?.message}</ErrorMessage>
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                onChange={handleFile}
+              />
+            </LabelUpload>
+            <ErrorMessage>{errors.file?.message}</ErrorMessage>
 
-          <Button>Editar</Button>
-        </form>
-      </Container>
+            <Button>Editar</Button>
+          </form>
+        </Container>
+      </ModalContentAdmin>
     </Modal>
   )
 }
