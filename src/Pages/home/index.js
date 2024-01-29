@@ -1,6 +1,8 @@
 import React from 'react'
+import { FaInstagram, FaFacebook, FaGoogle } from 'react-icons/fa'
 
 import ImgHome from '../../assets/home.jpg'
+import Logo from '../../assets/logo-footer.png'
 import {
   CarouselExperiences,
   Header,
@@ -10,9 +12,10 @@ import {
 import {
   Container,
   Banner,
-  TitleBanner,
   ContainerTitle,
-  Description
+  Description,
+  Footer,
+  Contacts
 } from './styles'
 
 export function Home() {
@@ -21,10 +24,6 @@ export function Home() {
       <MenuMobile />
       <Banner>
         <Header />
-        <TitleBanner>
-          <h1>GRAND HOTEL</h1>
-          <h3>Você merece o que há de melhor.</h3>
-        </TitleBanner>
       </Banner>
 
       <ContainerTitle>
@@ -47,6 +46,36 @@ export function Home() {
 
       <CarouselExperiences />
       <Units />
+      <Footer>
+        <img src={Logo} alt="logo grand hotel" />
+        <h3>Você merece o que há de melhor.</h3>
+        <Contacts>
+          <h3>Central de Atendimento</h3>
+          <p>+55 21 55886633</p>
+          <p>sac@grandhotel.com</p>
+          <div>
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaFacebook />
+            </a>
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaInstagram />
+            </a>
+            <a href="https://www.google.com/" target="_blank" rel="noreferrer">
+              <FaGoogle />
+            </a>
+          </div>
+        </Contacts>
+
+        <h2>Grand Hotel &copy; 2024</h2>
+      </Footer>
     </Container>
   )
 }

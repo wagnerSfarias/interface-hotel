@@ -24,29 +24,29 @@ export const Banner = styled.div`
     height: 350px;
   }
 `
-export const TitleBanner = styled.div`
-  color: #fff;
-  position: absolute;
-  top: 20%;
-  left: 5%;
-  h1 {
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-  h3 {
-    font-weight: 300;
-  }
+// export const TitleBanner = styled.div`
+//   color: #fff;
+//   position: absolute;
+//   top: 20%;
+//   left: 5%;
+//   h1 {
+//     font-weight: 500;
+//     margin-bottom: 10px;
+//   }
+//   h3 {
+//     font-weight: 300;
+//   }
 
-  @media screen and (max-width: 768px) {
-    h1 {
-      font-size: 28px;
-      margin-bottom: 5px;
-    }
-    h3 {
-      font-size: 16px;
-    }
-  }
-`
+//   @media screen and (max-width: 768px) {
+//     h1 {
+//       font-size: 28px;
+//       margin-bottom: 5px;
+//     }
+//     h3 {
+//       font-size: 16px;
+//     }
+//   }
+// `
 export const ContainerTitle = styled.div`
   display: flex;
   justify-content: center;
@@ -123,6 +123,93 @@ export const Description = styled.div`
     }
     p {
       font-size: 16px;
+    }
+  }
+`
+export const Footer = styled.footer`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(98, 135, 169, 0.2);
+  color: #305369;
+  position: relative;
+
+  h3 {
+    font-weight: 400;
+    margin: 1% auto;
+  }
+
+  h2 {
+    border-top: 2px solid #fe7569;
+    text-align: center;
+    padding-top: 1%;
+    width: 80%;
+    margin: 1% auto;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  img {
+    margin: 0 auto;
+    height: 150px;
+  }
+
+  @media screen and (max-width: 768px) {
+    img {
+      height: 100px;
+    }
+    h3 {
+      font-size: 18px;
+    }
+    h2 {
+      margin: 5% auto;
+    }
+  }
+`
+export const Contacts = styled.div`
+  position: absolute;
+  right: 3%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: fit-content;
+
+  h3 {
+    font-weight: 400;
+    color: #fe7569;
+    font-size: 20px;
+  }
+
+  p {
+    font-weight: 400;
+  }
+
+  div {
+    display: flex;
+    gap: 5%;
+
+    a {
+      color: #305369;
+      transition: transform 500ms;
+      font-size: 26px;
+    }
+    a:hover {
+      transform: scale(1.3);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    position: relative;
+    right: 0;
+    align-items: center;
+
+    div {
+      justify-content: center;
+      gap: 10%;
+      margin-top: 2%;
+
+      a:hover {
+        transform: none;
+      }
     }
   }
 `
