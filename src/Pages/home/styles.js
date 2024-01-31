@@ -24,29 +24,7 @@ export const Banner = styled.div`
     height: 350px;
   }
 `
-// export const TitleBanner = styled.div`
-//   color: #fff;
-//   position: absolute;
-//   top: 20%;
-//   left: 5%;
-//   h1 {
-//     font-weight: 500;
-//     margin-bottom: 10px;
-//   }
-//   h3 {
-//     font-weight: 300;
-//   }
 
-//   @media screen and (max-width: 768px) {
-//     h1 {
-//       font-size: 28px;
-//       margin-bottom: 5px;
-//     }
-//     h3 {
-//       font-size: 16px;
-//     }
-//   }
-// `
 export const ContainerTitle = styled.div`
   display: flex;
   justify-content: center;
