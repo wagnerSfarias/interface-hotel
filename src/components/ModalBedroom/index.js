@@ -95,6 +95,7 @@ export function ModalBedroom({ isOpen, onRequestClose, details }) {
           <Calendar>
             <p>CHECK-OUT</p>
             <DatePicker
+              disabled={!checkin && true}
               value={checkout}
               minDate={checkin}
               onChange={date => {
