@@ -8,7 +8,8 @@ import {
   Header,
   ListAmenities,
   ModalBedroom,
-  MenuMobile
+  MenuMobile,
+  Empty
 } from '../../components'
 import api from '../../service/api'
 import {
@@ -23,6 +24,7 @@ import {
 export function Bedrooms({ location: { state } }) {
   const [listBedrooms, setListBedrooms] = useState([])
   const [detail, setDetail] = useState([])
+  const [loading, setLoading] = useState(true)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -31,9 +33,13 @@ export function Bedrooms({ location: { state } }) {
         const { data } = await api.get(`/unit/bedrooms/`, {
           params: { unit_id: state.unitId }
         })
-        setListBedrooms(data)
+        setTimeout(() => {
+          setListBedrooms(data)
+          setLoading(false)
+        }, 2000)
       } catch (err) {
         toast.error('Falha no sistema! Tente novamente. ')
+        setLoading(false)
       }
     }
     loadBedroms()
@@ -58,6 +64,9 @@ export function Bedrooms({ location: { state } }) {
       <MenuMobile />
       <Header />
       <SubTitle isWhite={true}>{state.name}</SubTitle>
+
+      {loading && <Empty loading />}
+
       <ContainerBedrooms>
         {listBedrooms &&
           listBedrooms.map(bedroom => (
@@ -83,6 +92,11 @@ export function Bedrooms({ location: { state } }) {
             </CardBedrooms>
           ))}
       </ContainerBedrooms>
+
+      {listBedrooms.length === 0 && !loading && (
+        <Empty>No momento não possuímos quartos nessa unidade.</Empty>
+      )}
+
       {visible && (
         <ModalBedroom
           isOpen={visible}
