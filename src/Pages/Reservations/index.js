@@ -3,7 +3,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { SubTitle, Header, MenuMobile } from '../../components'
+import { SubTitle, Empty, Header, MenuMobile } from '../../components'
 import { Warn } from '../../components/ModalBedroom/styles'
 import { useUser } from '../../hooks/UserContext'
 import api from '../../service/api'
@@ -18,6 +18,7 @@ import {
 
 export function Reservations() {
   const [reservations, setReservations] = useState([])
+  const [loading, setLoading] = useState(true)
   const { logout } = useUser()
   const history = useHistory()
 
@@ -29,7 +30,10 @@ export function Reservations() {
         })
 
         if (response.status === 200 || response.status === 201) {
-          setReservations(response.data)
+          setTimeout(() => {
+            setReservations(response.data)
+            setLoading(false)
+          }, 2000)
         } else if (response.status === 401) {
           logout()
           toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
@@ -42,6 +46,7 @@ export function Reservations() {
         }
       } catch (err) {
         toast.error('Falha no sistema! Tente novamente.')
+        setLoading(false)
       }
     }
     loadReservations()
@@ -78,6 +83,9 @@ export function Reservations() {
       <Container>
         <Header />
         <SubTitle isWhite={true}>Suas Reservas</SubTitle>
+
+        {loading && <Empty loading />}
+
         <ContainerReservations>
           {reservations &&
             reservations.map(reservation => (
@@ -109,6 +117,9 @@ export function Reservations() {
               </CardReservation>
             ))}
         </ContainerReservations>
+        {reservations.length === 0 && !loading && (
+          <Empty>Nenhuma reserva foi encontrada.</Empty>
+        )}
       </Container>
     </>
   )
