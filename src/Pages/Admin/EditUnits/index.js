@@ -11,7 +11,8 @@ import { toast } from 'react-toastify'
 import {
   ModalCreateUnit,
   ModalEditUnit,
-  ButtonAdmin
+  ButtonAdmin,
+  Empty
 } from '../../../components'
 import api from '../../../service/api'
 import { Container, ImgUnit, EditIcon } from './styles'
@@ -21,12 +22,18 @@ export default function EditUnits() {
   const [createModal, setCreateModal] = useState(false)
   const [detail, setDetail] = useState([])
   const [editModal, setEditModal] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   async function loadUnits() {
     try {
       const { data } = await api.get('/units')
-      setUnits(data)
+
+      setTimeout(() => {
+        setUnits(data)
+        setLoading(false)
+      }, 2000)
     } catch (err) {
+      setLoading(false)
       toast.error('Falha no sistema! Tente novamente. ')
     }
   }
@@ -89,7 +96,11 @@ export default function EditUnits() {
             </TableBody>
           </Table>
         </TableContainer>
+        {loading && <Empty loading isAdmin />}
 
+        {!loading && units.length === 0 && (
+          <Empty isAdmin>Nenhuma unidade foi encontrada.</Empty>
+        )}
         {createModal && (
           <ModalCreateUnit isOpen={createModal} onRequestClose={closeModal} />
         )}

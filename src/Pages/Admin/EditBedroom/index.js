@@ -12,7 +12,8 @@ import { toast } from 'react-toastify'
 import {
   ModalCreateBedroom,
   ButtonAdmin,
-  ModalEditBedroom
+  ModalEditBedroom,
+  Empty
 } from '../../../components'
 import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
@@ -25,6 +26,7 @@ export default function EditBedroom() {
   const [rows, setRows] = useState([])
   const [editModal, setEditModal] = useState(false)
   const [createModal, setCreateModal] = useState(false)
+  const [loading, setLoading] = useState(true)
   const { logout } = useUser()
   const history = useHistory()
 
@@ -34,7 +36,10 @@ export default function EditBedroom() {
         validateStatus: () => true
       })
       if (response.status === 200 || response.status === 201) {
-        setBedrooms(response.data)
+        setTimeout(() => {
+          setBedrooms(response.data)
+          setLoading(false)
+        }, 2000)
       } else if (response.status === 401) {
         logout()
         toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
@@ -46,6 +51,7 @@ export default function EditBedroom() {
       }
     } catch (err) {
       toast.error('Falha no sistema! Tente novamente. ')
+      setLoading(false)
     }
   }, [])
 
@@ -111,6 +117,11 @@ export default function EditBedroom() {
             </TableBody>
           </Table>
         </TableContainer>
+        {loading && <Empty loading isAdmin />}
+
+        {!loading && bedrooms.length === 0 && (
+          <Empty isAdmin>Nenhum quarto foi encontrado.</Empty>
+        )}
       </Container>
       {createModal && (
         <ModalCreateBedroom isOpen={createModal} onRequestClose={closeModal} />

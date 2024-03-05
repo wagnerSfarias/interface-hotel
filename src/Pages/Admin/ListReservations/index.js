@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { Empty } from '../../../components'
 import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
 import formatDate from '../../../utils/formatDate'
@@ -18,6 +19,7 @@ import Row from './row'
 export default function ListReservations() {
   const [reservations, setReservations] = useState([])
   const [rows, setRows] = useState([])
+  const [loading, setLoading] = useState(true)
   const { logout } = useUser()
   const history = useHistory()
 
@@ -29,7 +31,10 @@ export default function ListReservations() {
         })
 
         if (response.status === 200) {
-          setReservations(response.data)
+          setTimeout(() => {
+            setReservations(response.data)
+            setLoading(false)
+          }, 2000)
         } else if (response.status === 401) {
           logout()
           toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
@@ -42,6 +47,7 @@ export default function ListReservations() {
         }
       } catch (err) {
         toast.error('Falha no sistema! Tente novamente.')
+        setLoading(false)
       }
     }
     loadReservations()
@@ -94,6 +100,11 @@ export default function ListReservations() {
           </TableBody>
         </Table>
       </TableContainer>
+      {loading && <Empty isAdmin loading />}
+
+      {!loading && rows.length === 0 && (
+        <Empty isAdmin>Nenhum histórico de reservas foi encontrado.</Empty>
+      )}
     </Container>
   )
 }
