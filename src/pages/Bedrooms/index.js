@@ -69,8 +69,13 @@ export function Bedrooms({ location: { state } }) {
 
       <ContainerBedrooms>
         {listBedrooms &&
-          listBedrooms.map(bedroom => (
-            <CardBedrooms key={bedroom.id}>
+          listBedrooms.map((bedroom, index) => (
+            <CardBedrooms
+              key={bedroom.id}
+              data-aos="zoom-in"
+              data-aos-delay={index * 300}
+              data-aos-easing="ease-in"
+            >
               <Descriptions>
                 <img src={bedroom.url} alt="imagem do quarto" />
                 <Detail>

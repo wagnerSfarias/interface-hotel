@@ -34,8 +34,14 @@ export function Home() {
       </ContainerTitle>
 
       <Description>
-        <img src={ImgHome} alt="imagem quarto" />
-        <div>
+        <img
+          data-aos="zoom-in"
+          data-aos-delay="300"
+          data-aos-easing="ease-in"
+          src={ImgHome}
+          alt="imagem quarto"
+        />
+        <div data-aos="fade-up" data-aos-delay="300">
           <h2>Nossos hoteis seguem um padrão de excelência.</h2>
           <p>
             Onde oferecemos serviços e lazer, como sala de eventos, sala de

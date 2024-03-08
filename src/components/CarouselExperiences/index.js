@@ -14,7 +14,11 @@ export function CarouselExperiences() {
   ]
 
   return (
-    <Container>
+    <Container
+      data-aos="zoom-in"
+      data-aos-delay="500"
+      data-aos-easing="ease-in"
+    >
       <SubTitle>Experiências</SubTitle>
       <ContainerCarousel breakPoints={breakPoints}>
         {dataCarousel.map(data => (

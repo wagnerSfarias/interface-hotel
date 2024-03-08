@@ -88,8 +88,13 @@ export function Reservations() {
 
         <ContainerReservations>
           {reservations &&
-            reservations.map(reservation => (
-              <CardReservation key={reservation.id}>
+            reservations.map((reservation, index) => (
+              <CardReservation
+                key={reservation.id}
+                data-aos="zoom-in"
+                data-aos-delay={index * 300}
+                data-aos-easing="ease-in"
+              >
                 <img src={reservation.bedroom.url} alt="imagem quarto" />
                 <Detail>
                   <h1>Quarto {reservation.bedroom.name}</h1>
