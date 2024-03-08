@@ -42,7 +42,7 @@ export function Home() {
           alt="imagem quarto"
         />
         <div data-aos="fade-up" data-aos-delay="300">
-          <h2>Nossos hoteis seguem um padrão de excelência.</h2>
+          <h2>Nossos hotéis seguem um padrão de excelência.</h2>
           <p>
             Onde oferecemos serviços e lazer, como sala de eventos, sala de
             reuniões, piscina aquecida, restaurante e estacionamento privativo.

@@ -85,7 +85,7 @@ export function Bedrooms({ location: { state } }) {
                     9.2 <FaStar className="icon" />
                   </p>
                   <Price>
-                    <p>Diarias apartir de</p>
+                    <p>Diárias apartir de</p>
                     <p>R${bedroom.price},00</p>
                   </Price>
                   <button onClick={() => openModal(bedroom.id)}>

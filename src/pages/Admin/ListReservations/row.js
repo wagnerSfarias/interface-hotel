@@ -48,7 +48,7 @@ export default function Row({ row }) {
                     <TableCell>Quarto</TableCell>
                     <TableCell>Check-in</TableCell>
                     <TableCell>Check-out</TableCell>
-                    <TableCell align="center">Total de Diarias</TableCell>
+                    <TableCell align="center">Total de Diárias</TableCell>
                     <TableCell align="right">Total</TableCell>
                   </TableRow>
                 </TableHead>
