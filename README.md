@@ -1,8 +1,6 @@
 ## Sobre
 
-Grand Hotel é uma aplicação FullStack, desenvolvida com foco em atender uma rede de hotéis com funcionalidades para os hóspedes e funcionários.
-
-
+Grand Hotel é uma aplicação FullStack, desenvolvida com o objetivo de atender às necessidades de uma rede de hotéis, com funcionalidades para os hóspedes e funcionários.
 
 ## Funcionalidades
 
