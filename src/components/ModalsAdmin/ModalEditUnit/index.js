@@ -66,9 +66,7 @@ export function ModalEditUnit({ isOpen, onRequestClose, details }) {
       } else {
         throw new Error()
       }
-    } catch (err) {
-      toast.error('Falha no sistema tente novamente!')
-    }
+    } catch (err) {}
   }
 
   const handleFile = e => {

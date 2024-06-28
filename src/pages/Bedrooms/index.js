@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { FaStar } from 'react-icons/fa'
-import { toast } from 'react-toastify'
 
 import {
   SubTitle,
@@ -38,7 +37,6 @@ export function Bedrooms({ location: { state } }) {
           setLoading(false)
         }, 2000)
       } catch (err) {
-        toast.error('Falha no sistema! Tente novamente. ')
         setLoading(false)
       }
     }
@@ -50,9 +48,7 @@ export function Bedrooms({ location: { state } }) {
       const { data } = await api.get(`/bedroom/${id}`)
       setDetail(data)
       setVisible(true)
-    } catch (err) {
-      toast.error('Falha no sistema! Tente novamente. ')
-    }
+    } catch (err) {}
   }
 
   function closeModal() {

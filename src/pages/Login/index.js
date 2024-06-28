@@ -72,9 +72,7 @@ export function Login() {
       } else {
         throw new Error()
       }
-    } catch (err) {
-      toast.error('Falha no sistema! Tente novamente. ')
-    }
+    } catch (err) {}
   }
 
   return (

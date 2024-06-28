@@ -69,9 +69,7 @@ export function ModalCreateUnit({ isOpen, onRequestClose }) {
         } else {
           throw new Error()
         }
-      } catch (err) {
-        toast.error('Falha no sistema tente novamente!')
-      }
+      } catch (err) {}
     } else {
       setErrorFile(true)
     }

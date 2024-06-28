@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 
 import api from '../../service/api'
 import { SubTitle } from '../index'
@@ -13,9 +12,7 @@ export function Units() {
       try {
         const { data } = await api.get('/units')
         setUnits(data)
-      } catch (err) {
-        toast.error('Falha no sistema! Tente novamente. ')
-      }
+      } catch (err) {}
     }
     loadUnits()
   }, [])

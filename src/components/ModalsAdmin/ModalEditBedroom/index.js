@@ -4,11 +4,9 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { MdClose } from 'react-icons/md'
-import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
-import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
 import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
@@ -30,8 +28,6 @@ import {
 export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
   const [units, setUnits] = useState([])
   const [listFile, setListFile] = useState(details.images)
-  const { logout } = useUser()
-  const history = useHistory()
 
   useEffect(() => {
     async function loadUnits() {
@@ -80,29 +76,11 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
     unitDataFormData.append('unit_id', data.id_unit.id)
 
     try {
-      const { status } = await api.put(
-        `/bedroom/${details.id}`,
-        unitDataFormData,
-        {
-          validateStatus: () => true
-        }
-      )
-      if (status === 201 || status === 200) {
-        toast.success('Quarto editado.')
-        onRequestClose()
-      } else if (status === 401) {
-        logout()
-        toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
+      await api.put(`/bedroom/${details.id}`, unitDataFormData)
 
-        setTimeout(() => {
-          history.push('/login')
-        }, 2000)
-      } else {
-        throw new Error()
-      }
-    } catch (err) {
-      toast.error('Falha no sistema tente novamente!')
-    }
+      toast.success('Quarto editado.')
+      onRequestClose()
+    } catch (err) {}
   }
 
   const handleUpdateFile = (e, key) => {

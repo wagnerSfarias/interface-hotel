@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 
 import {
   ModalCreateUnit,
@@ -34,7 +33,6 @@ export default function EditUnits() {
       }, 2000)
     } catch (err) {
       setLoading(false)
-      toast.error('Falha no sistema! Tente novamente. ')
     }
   }
 

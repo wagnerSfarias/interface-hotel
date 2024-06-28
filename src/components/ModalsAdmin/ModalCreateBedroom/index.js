@@ -4,11 +4,9 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { MdClose, MdUploadFile } from 'react-icons/md'
-import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
-import { useUser } from '../../../hooks/UserContext'
 import api from '../../../service/api'
 import typeFile from '../../../utils/typeFile'
 import { ErrorMessage } from '../../ErroMessage'
@@ -31,8 +29,6 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
   const [listFile, setListFile] = useState([])
   const [units, setUnits] = useState([])
   const [errorFile, setErrorFile] = useState(false)
-  const { logout } = useUser()
-  const history = useHistory()
 
   useEffect(() => {
     async function loadUnits() {
@@ -44,9 +40,7 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
         })
 
         setUnits(dataUnits)
-      } catch (err) {
-        toast.error('Falha no sistema! Tente novamente. ')
-      }
+      } catch (err) {}
     }
     loadUnits()
   }, [])
@@ -87,25 +81,10 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
       unitDataFormData.append('unit_id', data.id_unit.value)
 
       try {
-        const { status } = await api.post('bedroom/', unitDataFormData, {
-          validateStatus: () => true
-        })
-        if (status === 201 || status === 200) {
-          toast.success('Quarto adicionado.')
-          onRequestClose()
-        } else if (status === 401) {
-          logout()
-          toast.error('Ocorreu um erro na sua autenticação! Tente novamente.')
-
-          setTimeout(() => {
-            history.push('/login')
-          }, 2000)
-        } else {
-          throw new Error()
-        }
-      } catch (err) {
-        toast.error('Falha no sistema tente novamente!')
-      }
+        await api.post('bedroom/', unitDataFormData)
+        toast.success('Quarto adicionado.')
+        onRequestClose()
+      } catch (err) {}
     }
   }
 
