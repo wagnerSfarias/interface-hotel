@@ -10,7 +10,6 @@ const LightTooltip = styled(({ className, ...props }) => (
     color: '#305369'
   },
   [`& .${tooltipClasses.tooltip}`]: {
-    // backgroundColor: '#7890F4',
     backgroundColor: '#305369',
     height: '30px',
     display: 'flex',
