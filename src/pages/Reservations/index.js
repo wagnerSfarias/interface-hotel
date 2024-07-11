@@ -61,7 +61,7 @@ export function Reservations() {
                 data-aos-delay={index * 300}
                 data-aos-easing="ease-in"
               >
-                <img src={reservation.bedroom.url} alt="imagem quarto" />
+                <img src={reservation.bedroom.url[0]} alt="imagem quarto" />
                 <Detail>
                   <h1>Quarto {reservation.bedroom.name}</h1>
                   <p>

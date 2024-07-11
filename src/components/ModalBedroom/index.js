@@ -59,9 +59,9 @@ export function ModalBedroom({ isOpen, onRequestClose, details }) {
           <p>{details.name}</p>
         </Header>
         <ContainerCarousel>
-          <Image src={details.url} alt="imagem do quarto" />
-          <Image src={details.url_l} alt="imagem do quarto" />
-          <Image src={details.url_r} alt="imagem do quarto" />
+          <Image src={details.url[0]} alt="imagem do quarto" />
+          <Image src={details.url[1]} alt="imagem do quarto" />
+          <Image src={details.url[2]} alt="imagem do quarto" />
         </ContainerCarousel>
 
         <ContainerDates>

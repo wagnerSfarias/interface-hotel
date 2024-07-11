@@ -73,7 +73,7 @@ export function Bedrooms({ location: { state } }) {
               data-aos-easing="ease-in"
             >
               <Descriptions>
-                <img src={bedroom.url} alt="imagem do quarto" />
+                <img src={bedroom.url[0]} alt="imagem do quarto" />
                 <Detail>
                   <h1>{bedroom.name}</h1>
                   <p>{bedroom.unidade.name}</p>
