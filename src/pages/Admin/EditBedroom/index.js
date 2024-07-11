@@ -28,11 +28,8 @@ export default function EditBedroom() {
   const loadBedrooms = useCallback(async () => {
     try {
       const response = await api.get('/bedrooms')
-
-      setTimeout(() => {
-        setBedrooms(response.data)
-        setLoading(false)
-      }, 2000)
+      setBedrooms(response.data)
+      setLoading(false)
     } catch (err) {
       setLoading(false)
     }
@@ -49,11 +46,7 @@ export default function EditBedroom() {
       price: bedroom.price,
       qtd_people: bedroom.qtd_people,
       unit_name: bedroom.unidade.name,
-      images: [
-        { url: bedroom.url },
-        { url: bedroom.url_l },
-        { url: bedroom.url_r }
-      ],
+      images: bedroom.url.map(file => ({ url: file })),
       select: bedroom.unidade
     }
   }
