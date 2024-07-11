@@ -75,9 +75,9 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
       unitDataFormData.append('name', data.name)
       unitDataFormData.append('price', data.price)
       unitDataFormData.append('qtd_people', data.qtd_people)
-      unitDataFormData.append('file', listFile[0])
-      unitDataFormData.append('file', listFile[1])
-      unitDataFormData.append('file', listFile[2])
+      for (let i = 0; i < listFile.length; i++) {
+        unitDataFormData.append('file', listFile[i])
+      }
       unitDataFormData.append('unit_id', data.id_unit.value)
 
       try {
@@ -99,8 +99,8 @@ export function ModalCreateBedroom({ isOpen, onRequestClose }) {
           e.target.value = null
           return
         }
+        const files = [...listFile, isImage[0]]
 
-        const files = [...listFile, ...isImage]
         setListFile(files)
         e.target.value = null
       } else {
