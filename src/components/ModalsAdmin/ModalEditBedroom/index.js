@@ -39,9 +39,7 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
         })
 
         setUnits(dataUnits)
-      } catch (err) {
-        toast.error('Falha no sistema! Tente novamente. ')
-      }
+      } catch (err) {}
     }
     loadUnits()
   }, [])
@@ -77,7 +75,6 @@ export function ModalEditBedroom({ isOpen, onRequestClose, details }) {
 
     try {
       await api.put(`/bedroom/${details.id}`, unitDataFormData)
-
       toast.success('Quarto editado.')
       onRequestClose()
     } catch (err) {}
